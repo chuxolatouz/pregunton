@@ -6,6 +6,9 @@ Pregunton is a warm, mobile-first question-deck experience for real social momen
 
 The product is not a quiz with correct answers. It is not a corporate dashboard. It is not a mobile game. It should feel lightweight, human, playful, conversational, and useful while someone is sitting with another person.
 
+Visual identity rule:
+This product should not look like a default component-library interface. It should feel like a tactile deck of paper conversation cards: warm, readable, human, slightly imperfect, and intentionally designed around the act of drawing, reading, saving, and sharing questions.
+
 Design every page around:
 
 - Purpose

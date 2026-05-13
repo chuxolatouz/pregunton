@@ -26,7 +26,7 @@ export default function HomePage() {
         <CategoryGrid decks={decks} />
       </div>
       <section className="mx-auto max-w-4xl px-4 py-10 text-center sm:px-6">
-        <h2 className="text-2xl font-black tracking-tight text-ink sm:text-3xl">
+        <h2 className="display-serif text-3xl font-bold text-ink sm:text-4xl">
           Hecho para leer una pregunta en voz alta
         </h2>
         <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-ink/68">

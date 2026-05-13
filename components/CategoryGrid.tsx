@@ -6,7 +6,7 @@ export function CategoryGrid({ decks, title = "Elige un mazo" }: { decks: Deck[]
     <section aria-labelledby="deck-grid-title" className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
       <div className="mb-5 flex items-end justify-between gap-4">
         <div>
-          <h2 id="deck-grid-title" className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+          <h2 id="deck-grid-title" className="display-serif text-3xl font-bold text-ink sm:text-4xl">
             {title}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-ink/65">

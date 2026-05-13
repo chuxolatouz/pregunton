@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getSeoPage, getDeckById } from "@/data/decks";
+import { deckThemeClass } from "@/lib/deckTheme";
 
 export function RelatedDecks({ slugs }: { slugs: string[] }) {
   const related = slugs
@@ -17,14 +18,14 @@ export function RelatedDecks({ slugs }: { slugs: string[] }) {
 
   return (
     <section aria-labelledby="related-title" className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
-      <h2 id="related-title" className="text-2xl font-black tracking-tight text-ink">
+      <h2 id="related-title" className="display-serif text-3xl font-bold text-ink">
         Mazos relacionados
       </h2>
       <div className="mt-5 grid gap-3 sm:grid-cols-3">
         {related.map(({ page, deck }) => (
-          <Link className="rounded-[1.2rem] border border-ink/10 bg-white p-4 shadow-soft transition hover:-translate-y-1" href={`/${page.slug}`} key={page.slug}>
-            <p className="text-sm font-bold text-coral">{deck.category}</p>
-            <p className="mt-2 font-black leading-tight text-ink">{deck.title}</p>
+          <Link className="paper-surface paper-lift rounded-[1rem] p-4" href={`/${page.slug}`} key={page.slug}>
+            <p className={deckThemeClass(deck.id, "accent", "text-sm font-black")}>{deck.category}</p>
+            <p className="display-serif mt-2 text-xl font-bold leading-tight text-ink">{deck.title}</p>
             <p className="mt-2 text-sm leading-6 text-ink/62">{deck.description}</p>
           </Link>
         ))}

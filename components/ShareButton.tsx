@@ -1,29 +1,30 @@
 "use client";
 
 import { CopyIcon, ShareIcon } from "@/components/icons";
+import { PaperButton } from "@/components/Paper";
 
 export function CopyButton({ onCopy }: { onCopy: () => void }) {
   return (
-    <button
+    <PaperButton
       aria-label="Copiar pregunta"
-      className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-ink shadow-soft ring-1 ring-ink/10 transition hover:-translate-y-0.5"
+      className="h-12 w-12 rounded-[0.95rem] px-0 text-ink"
       onClick={onCopy}
       type="button"
     >
       <CopyIcon />
-    </button>
+    </PaperButton>
   );
 }
 
 export function ShareButton({ onShare }: { onShare: () => void }) {
   return (
-    <button
+    <PaperButton
       aria-label="Compartir pregunta"
-      className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-ink shadow-soft ring-1 ring-ink/10 transition hover:-translate-y-0.5"
+      className="h-12 w-12 rounded-[0.95rem] px-0 text-ink"
       onClick={onShare}
       type="button"
     >
       <ShareIcon />
-    </button>
+    </PaperButton>
   );
 }

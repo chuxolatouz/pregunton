@@ -1,6 +1,7 @@
 "use client";
 
 import { HeartIcon } from "@/components/icons";
+import { PaperButton } from "@/components/Paper";
 
 export function FavoriteButton({
   active,
@@ -10,14 +11,14 @@ export function FavoriteButton({
   onToggle: () => void;
 }) {
   return (
-    <button
+    <PaperButton
       aria-label={active ? "Quitar de favoritos" : "Guardar en favoritos"}
       aria-pressed={active}
-      className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-coral shadow-soft ring-1 ring-ink/10 transition hover:-translate-y-0.5"
+      className="h-12 w-12 rounded-[0.95rem] px-0 text-coral"
       onClick={onToggle}
       type="button"
     >
       <HeartIcon filled={active} />
-    </button>
+    </PaperButton>
   );
 }

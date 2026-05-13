@@ -24,6 +24,11 @@ export type Deck = {
   description: string;
   category: string;
   tone: string;
+  source?: {
+    label: string;
+    url: string;
+    note?: string;
+  };
   seoSlug: string;
   questions: Question[];
 };
@@ -371,6 +376,59 @@ const deckSeeds: DeckSeed[] = [
       "¿Qué talento raro debería enseñarse en la escuela?",
       "¿Qué pregunta random te gustaría responder sin contexto?"
     ]
+  },
+  {
+    id: "36-preguntas-enamorarse",
+    title: "36 preguntas para acercarse",
+    description: "Una adaptación en español, gradual y cuidadosa, inspirada en las famosas 36 preguntas popularizadas por The New York Times.",
+    category: "Amor / Parejas",
+    tone: "íntimo, progresivo y respetuoso",
+    seoSlug: "36-preguntas-para-enamorarse",
+    intensity: "romantic",
+    tags: ["pareja", "cercanía", "intimidad", "nyt"],
+    source: {
+      label: "The New York Times: To Fall in Love With Anyone, Do This",
+      url: "https://www.nytimes.com/2015/01/09/style/no-37-big-wedding-or-small.html",
+      note: "Referencia para verificar el origen popular del ejercicio; este mazo usa una adaptación original en español, no una reproducción literal del listado."
+    },
+    questions: [
+      "¿A qué persona invitarías a cenar si pudieras elegir a cualquiera?",
+      "¿Qué tipo de reconocimiento te gustaría recibir y por qué?",
+      "¿Qué sueles pensar antes de hacer una llamada importante?",
+      "¿Qué tendría que pasar para que un día se sienta perfecto para ti?",
+      "¿Cuándo fue la última vez que cantaste para ti o para alguien más?",
+      "¿Qué parte de tu vida te gustaría conservar joven por más tiempo?",
+      "¿Qué intuición rara tienes sobre tu propio futuro?",
+      "¿Qué tres cosas crees que tenemos en común ahora mismo?",
+      "¿Qué cosa de tu vida agradeces más en esta etapa?",
+      "¿Qué cambiarías de la forma en que creciste si pudieras hacerlo con cariño?",
+      "¿Qué versión corta de tu historia de vida contarías en cuatro minutos?",
+      "¿Qué cualidad o habilidad te gustaría despertar teniendo mañana?",
+      "¿Qué verdad te gustaría conocer si una respuesta honesta apareciera hoy?",
+      "¿Qué sueño has dejado esperando más tiempo del que querías?",
+      "¿Qué logro tuyo te hace sentir más orgullo tranquilo?",
+      "¿Qué valoras más cuando una amistad se vuelve importante?",
+      "¿Qué recuerdo guardas como un tesoro personal?",
+      "¿Qué recuerdo difícil te enseñó algo que todavía llevas contigo?",
+      "¿Qué cambiarías de tu vida si supieras que el tiempo es más corto?",
+      "¿Qué significa para ti una amistad de verdad?",
+      "¿Qué lugar ocupan el amor y el cariño en tu vida diaria?",
+      "¿Qué cinco cosas buenas podríamos notar el uno del otro ahora?",
+      "¿Qué tan cálido se sentía tu hogar cuando eras niño?",
+      "¿Qué ha marcado tu relación con tu madre o con quien cumplió ese lugar?",
+      "¿Qué frase empezada con nosotros podríamos completar de forma honesta?",
+      "¿Qué te gustaría poder compartir con alguien sin sentirte juzgado?",
+      "¿Qué debería saber alguien si quisiera ser realmente cercano a ti?",
+      "¿Qué aprecias de la otra persona que quizá no dirías tan pronto?",
+      "¿Qué momento vergonzoso puedes contar sin castigarte por él?",
+      "¿Cuándo fue la última vez que lloraste con alguien o a solas?",
+      "¿Qué te gusta ya de la forma en que esta conversación está pasando?",
+      "¿Qué tema sientes que merece tratarse con cuidado y no con bromas?",
+      "¿Qué te dolería no haber dicho si esta noche no pudieras hablar más?",
+      "¿Qué objeto salvarías de tu casa después de cuidar a todos los seres vivos?",
+      "¿Qué pérdida familiar o cercana te costaría más imaginar y por qué?",
+      "¿Qué problema personal compartirías para pedir consejo y sentirte escuchado?"
+    ]
   }
 ];
 
@@ -393,6 +451,7 @@ export const decks: Deck[] = deckSeeds.map((seed) => ({
   description: seed.description,
   category: seed.category,
   tone: seed.tone,
+  source: seed.source,
   seoSlug: seed.seoSlug,
   questions: buildQuestions(seed)
 }));
@@ -481,7 +540,32 @@ export const seoPages: SeoPage[] = [
     ogTitle: "Preguntas para parejas con calma y cariño",
     ogDescription: "Un mazo íntimo, cálido y seguro para hablar de lo que acerca.",
     h2: "Preguntas lindas para conversar en pareja",
-    related: ["preguntas-para-primera-cita", "preguntas-profundas", "preguntas-para-viajar"]
+    related: ["36-preguntas-para-enamorarse", "preguntas-para-primera-cita", "preguntas-profundas"]
+  },
+  {
+    slug: "36-preguntas-para-enamorarse",
+    deckId: "36-preguntas-enamorarse",
+    primaryKeyword: "36 preguntas para enamorarse",
+    secondaryKeywords: ["36 preguntas del New York Times", "preguntas para enamorarse", "preguntas para crear intimidad"],
+    searchIntent: "Encontrar una versión en español del ejercicio de 36 preguntas para acercarse emocionalmente.",
+    h1: "36 preguntas para enamorarse, adaptadas para conversar con calma",
+    intro: "Una adaptación cálida en español del ejercicio de preguntas progresivas que se volvió famoso por The New York Times.",
+    title: "36 preguntas para enamorarse: mazo inspirado en The New York Times",
+    description: "Un mazo de 36 preguntas progresivas para crear cercanía, inspirado en el ejercicio popularizado por The New York Times.",
+    ogTitle: "36 preguntas para acercarse de verdad",
+    ogDescription: "Una adaptación en español para conversar con calma, escuchar mejor y abrir cercanía sin presión.",
+    h2: "Las 36 preguntas para crear cercanía",
+    related: ["preguntas-para-parejas", "preguntas-para-primera-cita", "preguntas-profundas"],
+    faq: [
+      {
+        question: "¿Estas son las preguntas exactas de The New York Times?",
+        answer: "No. Este mazo es una adaptación original en español inspirada en el ejercicio popularizado por The New York Times y en la investigación de cercanía interpersonal."
+      },
+      {
+        question: "¿Las 36 preguntas hacen que alguien se enamore?",
+        answer: "No garantizan enamoramiento. Funcionan mejor como una estructura para escuchar, compartir y crear cercanía de forma gradual."
+      }
+    ]
   },
   {
     slug: "preguntas-para-primera-cita",

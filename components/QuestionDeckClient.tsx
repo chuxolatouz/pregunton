@@ -155,8 +155,8 @@ export function QuestionDeckClient({ deck }: { deck: Deck }) {
     <section aria-labelledby="deck-mode-title" className="mx-auto grid max-w-5xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_320px] lg:items-start">
       <div className="space-y-5">
         <div>
-          <p className="text-sm font-bold uppercase tracking-[0.16em] text-coral">Modo cartas</p>
-          <h1 id="deck-mode-title" className="mt-2 text-3xl font-black tracking-tight text-ink sm:text-5xl">
+          <p className="paper-label inline-flex rotate-[-1deg] rounded-[0.75rem] px-3 py-2 text-sm font-black uppercase tracking-[0.14em] text-coral">Modo cartas</p>
+          <h1 id="deck-mode-title" className="display-serif mt-3 text-4xl font-bold text-ink sm:text-6xl">
             {deck.title}
           </h1>
           <p className="mt-3 max-w-2xl text-base leading-7 text-ink/68">{deck.description}</p>
@@ -171,22 +171,31 @@ export function QuestionDeckClient({ deck }: { deck: Deck }) {
         </div>
       </div>
 
-      <aside className="rounded-[1.5rem] border border-ink/10 bg-white p-5 shadow-soft">
-        <h2 className="text-lg font-black text-ink">Favoritas de este mazo</h2>
+      <aside className="paper-surface rounded-[1.1rem] p-5">
+        <h2 className="display-serif text-2xl font-bold text-ink">Favoritas de este mazo</h2>
         <p className="mt-2 text-sm leading-6 text-ink/65">
           Tienes {favoriteCount} pregunta{favoriteCount === 1 ? "" : "s"} guardada{favoriteCount === 1 ? "" : "s"} de este mazo en este dispositivo.
         </p>
+        {deck.source ? (
+          <div className="mt-4 rounded-[0.8rem] border border-dashed border-ink/15 bg-white/45 p-3 text-xs leading-5 text-ink/62">
+            <p className="font-black text-ink/70">Referencia verificable</p>
+            <a className="mt-1 inline-flex font-bold underline decoration-dashed underline-offset-4 hover:text-ink" href={deck.source.url} rel="noreferrer" target="_blank">
+              {deck.source.label}
+            </a>
+            {deck.source.note ? <p className="mt-2">{deck.source.note}</p> : null}
+          </div>
+        ) : null}
         <div className="mt-5 space-y-3">
           {deck.questions
             .filter((item) => favorites.includes(item.id))
             .slice(0, 5)
             .map((item) => (
-              <p className="rounded-2xl bg-paper p-3 text-sm leading-6 text-ink/72" key={item.id}>
+              <p className="rounded-[0.8rem] border border-dashed border-ink/15 bg-white/45 p-3 text-sm leading-6 text-ink/72" key={item.id}>
                 {item.text}
               </p>
             ))}
           {favoriteCount === 0 ? (
-            <p className="rounded-2xl bg-paper p-3 text-sm leading-6 text-ink/60">
+            <p className="rounded-[0.8rem] border border-dashed border-ink/15 bg-white/45 p-3 text-sm leading-6 text-ink/60">
               Marca una pregunta con el corazón para volver a ella luego.
             </p>
           ) : null}

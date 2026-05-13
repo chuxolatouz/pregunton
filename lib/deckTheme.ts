@@ -44,6 +44,12 @@ const themes: Record<string, DeckTheme> = {
     soft: "bg-coral/[0.12] border-coral/20",
     button: "bg-coral text-white hover:bg-coral/90"
   },
+  "36-preguntas-enamorarse": {
+    card: "border-coral/30 bg-[#fff3e6]",
+    accent: "text-coral",
+    soft: "bg-[#fff3e6] border-coral/20",
+    button: "bg-coral text-white hover:bg-coral/90"
+  },
   "primera-cita": {
     card: "border-coral/30 bg-white",
     accent: "text-coral",

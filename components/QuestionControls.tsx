@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeftIcon, ArrowRightIcon, ShuffleIcon } from "@/components/icons";
+import { PaperButton } from "@/components/Paper";
 
 export function QuestionControls({
   onPrevious,
@@ -13,31 +14,31 @@ export function QuestionControls({
 }) {
   return (
     <div className="grid grid-cols-[1fr_1.2fr_1fr] gap-3">
-      <button
+      <PaperButton
         aria-label="Pregunta anterior"
-        className="inline-flex min-h-12 items-center justify-center rounded-full bg-white px-4 text-ink shadow-soft ring-1 ring-ink/10 transition hover:-translate-y-0.5"
+        className="px-4"
         onClick={onPrevious}
         type="button"
       >
         <ArrowLeftIcon />
-      </button>
-      <button
+      </PaperButton>
+      <PaperButton
         aria-label="Pregunta aleatoria"
-        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-marigold px-4 text-sm font-black text-ink shadow-soft transition hover:-translate-y-0.5"
+        className="gap-2 bg-marigold"
         onClick={onRandom}
         type="button"
       >
         <ShuffleIcon className="h-4 w-4" />
         Random
-      </button>
-      <button
+      </PaperButton>
+      <PaperButton
         aria-label="Siguiente pregunta"
-        className="inline-flex min-h-12 items-center justify-center rounded-full bg-ink px-4 text-white shadow-soft transition hover:-translate-y-0.5"
+        className="bg-ink px-4 text-white"
         onClick={onNext}
         type="button"
       >
         <ArrowRightIcon />
-      </button>
+      </PaperButton>
     </div>
   );
 }

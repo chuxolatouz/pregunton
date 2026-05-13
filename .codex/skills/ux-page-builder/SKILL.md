@@ -48,6 +48,7 @@ Use [page-patterns.md](page-patterns.md) for general page planning and [question
 
 - Help the user start quickly.
 - Make category selection obvious.
+- For conversational-question products, prefer tactile card and paper metaphors over generic SaaS cards. Design the question as a physical-feeling object: a prompt card, note, postcard, index card, or small paper sheet. The UI should support the emotional act of reading a question aloud.
 - Make question cards tactile, readable, and shareable.
 - Support copy, share, and random-question flows.
 - Support a one-question-at-a-time mode.
