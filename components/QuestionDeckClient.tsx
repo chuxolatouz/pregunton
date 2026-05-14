@@ -10,15 +10,35 @@ import { CopyButton, ShareButton } from "@/components/ShareButton";
 
 const storageKey = "pregunton:favorites";
 const favoritesChangeEvent = "pregunton:favorites-change";
+const emptyFavorites: string[] = [];
+let cachedFavoritesRaw: string | null = null;
+let cachedFavoritesSnapshot: string[] = emptyFavorites;
 
 function readFavorites() {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return emptyFavorites;
 
   try {
     const raw = window.localStorage.getItem(storageKey);
-    return raw ? (JSON.parse(raw) as string[]) : [];
+    if (!raw) {
+      cachedFavoritesRaw = null;
+      cachedFavoritesSnapshot = emptyFavorites;
+      return cachedFavoritesSnapshot;
+    }
+
+    if (raw === cachedFavoritesRaw) {
+      return cachedFavoritesSnapshot;
+    }
+
+    const parsed = JSON.parse(raw);
+    cachedFavoritesRaw = raw;
+    cachedFavoritesSnapshot = Array.isArray(parsed)
+      ? parsed.filter((item): item is string => typeof item === "string")
+      : emptyFavorites;
+
+    return cachedFavoritesSnapshot;
   } catch {
-    return [];
+    cachedFavoritesSnapshot = emptyFavorites;
+    return cachedFavoritesSnapshot;
   }
 }
 
@@ -33,11 +53,14 @@ function subscribeToFavorites(onStoreChange: () => void) {
 }
 
 function getServerFavoritesSnapshot() {
-  return [];
+  return emptyFavorites;
 }
 
 function writeFavorites(nextFavorites: string[]) {
-  window.localStorage.setItem(storageKey, JSON.stringify(nextFavorites));
+  const raw = JSON.stringify(nextFavorites);
+  cachedFavoritesRaw = raw;
+  cachedFavoritesSnapshot = nextFavorites;
+  window.localStorage.setItem(storageKey, raw);
   window.dispatchEvent(new Event(favoritesChangeEvent));
 }
 
