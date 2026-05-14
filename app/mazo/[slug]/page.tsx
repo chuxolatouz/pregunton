@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { QuestionDeckClient } from "@/components/QuestionDeckClient";
 import { getDeckBySlug, decks } from "@/data/decks";
@@ -41,11 +40,6 @@ export default async function DeckModePage({ params }: PageProps) {
 
   return (
     <main>
-      <div className="mx-auto max-w-5xl px-4 pt-4 text-sm font-semibold text-ink/60 sm:px-6">
-        <Link className="hover:text-ink" href={`/${deck.seoSlug}`}>
-          Volver a la lista SEO
-        </Link>
-      </div>
       <QuestionDeckClient deck={deck} />
     </main>
   );

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import Link from "next/link";
+import { useEffect, useRef, useState, useSyncExternalStore, type TouchEvent } from "react";
 import type { Deck } from "@/data/decks";
+import { ArrowLeftIcon, ArrowRightIcon, ShuffleIcon } from "@/components/icons";
 import { FavoriteButton } from "@/components/FavoriteButton";
-import { ProgressBar } from "@/components/ProgressBar";
 import { QuestionCard } from "@/components/QuestionCard";
-import { QuestionControls } from "@/components/QuestionControls";
 import { CopyButton, ShareButton } from "@/components/ShareButton";
 
 const storageKey = "pregunton:favorites";
@@ -71,15 +71,11 @@ function useLocalFavorites() {
 export function QuestionDeckClient({ deck }: { deck: Deck }) {
   const [index, setIndex] = useState(0);
   const [status, setStatus] = useState("");
+  const touchStartX = useRef<number | null>(null);
   const favorites = useLocalFavorites();
 
   const question = deck.questions[index];
   const isFavorite = favorites.includes(question.id);
-
-  const favoriteCount = useMemo(
-    () => deck.questions.filter((item) => favorites.includes(item.id)).length,
-    [deck.questions, favorites]
-  );
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -125,7 +121,7 @@ export function QuestionDeckClient({ deck }: { deck: Deck }) {
       : [...favorites, question.id];
 
     writeFavorites(nextFavorites);
-    showStatus(isFavorite ? "Quitada" : "Guardada");
+    showStatus(isFavorite ? "Carta quitada" : "Carta guardada");
   }
 
   async function copyText(text: string) {
@@ -148,7 +144,7 @@ export function QuestionDeckClient({ deck }: { deck: Deck }) {
   async function copyQuestion() {
     try {
       await copyText(question.shareText ?? question.text);
-      showStatus("Copiada");
+      showStatus("Carta copiada");
     } catch {
       showStatus("No se pudo copiar");
     }
@@ -174,56 +170,119 @@ export function QuestionDeckClient({ deck }: { deck: Deck }) {
     await copyQuestion();
   }
 
+  function onTouchStart(event: TouchEvent<HTMLElement>) {
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  }
+
+  function onTouchEnd(event: TouchEvent<HTMLElement>) {
+    if (touchStartX.current === null) return;
+
+    const endX = event.changedTouches[0]?.clientX ?? touchStartX.current;
+    const distance = endX - touchStartX.current;
+    touchStartX.current = null;
+
+    if (Math.abs(distance) < 48) return;
+    if (distance < 0) {
+      goNext();
+    } else {
+      goPrevious();
+    }
+  }
+
   return (
-    <section aria-labelledby="deck-mode-title" className="mx-auto grid max-w-5xl gap-6 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_320px] lg:items-start">
-      <div className="space-y-5">
-        <div>
-          <p className="paper-label inline-flex rotate-[-1deg] rounded-[0.75rem] px-3 py-2 text-sm font-black uppercase tracking-[0.14em] text-coral">Modo cartas</p>
-          <h1 id="deck-mode-title" className="display-serif mt-3 text-4xl font-bold text-ink sm:text-6xl">
-            {deck.title}
-          </h1>
-          <p className="mt-3 max-w-2xl text-base leading-7 text-ink/68">{deck.description}</p>
+    <section
+      aria-labelledby="deck-mode-title"
+      className="relative isolate flex min-h-[100dvh] overflow-hidden px-4 py-4 sm:px-6 sm:py-6"
+      onTouchEnd={onTouchEnd}
+      onTouchStart={onTouchStart}
+    >
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_10%,rgba(255,250,240,0.9),transparent_30rem),linear-gradient(180deg,#f7edda,#efe0c6)]" />
+
+      <div className="mx-auto flex min-h-[calc(100dvh-2rem)] w-full max-w-6xl flex-col">
+        <header className="flex items-center justify-between gap-3">
+          <Link className="rounded-full bg-white/45 px-3 py-2 text-sm font-black text-ink/68 shadow-sm backdrop-blur hover:text-ink" href={`/${deck.seoSlug}`}>
+            Volver
+          </Link>
+          <div className="text-center">
+            <h1 id="deck-mode-title" className="text-sm font-black text-ink/72">
+              {deck.title}
+            </h1>
+            <p className="mt-1 text-xs font-bold text-ink/42">{index + 1} / {deck.questions.length}</p>
+          </div>
+          <Link className="rounded-full bg-white/45 px-3 py-2 text-sm font-black text-ink/68 shadow-sm backdrop-blur hover:text-ink" href="/mis-cartas">
+            Guardadas
+          </Link>
+        </header>
+
+        <div className="relative flex flex-1 items-center justify-center py-5 sm:py-8">
+          <button
+            aria-label="Pregunta anterior"
+            className="paper-button absolute left-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full px-0 text-ink lg:inline-flex"
+            onClick={goPrevious}
+            type="button"
+          >
+            <ArrowLeftIcon />
+          </button>
+
+          <QuestionCard
+            deckId={deck.id}
+            deckTitle={deck.category}
+            footer={`Carta ${index + 1} de ${deck.questions.length}`}
+            question={question.text}
+            status={status}
+          />
+
+          <button
+            aria-label="Siguiente pregunta"
+            className="paper-button absolute right-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full bg-ink px-0 text-white lg:inline-flex"
+            onClick={goNext}
+            type="button"
+          >
+            <ArrowRightIcon />
+          </button>
         </div>
-        <ProgressBar current={index + 1} total={deck.questions.length} />
-        <QuestionCard deckId={deck.id} deckTitle={deck.category} question={question.text} status={status} />
-        <QuestionControls onNext={goNext} onPrevious={goPrevious} onRandom={goRandom} />
-        <div className="flex items-center justify-center gap-3">
-          <FavoriteButton active={isFavorite} onToggle={toggleFavorite} />
-          <CopyButton onCopy={copyQuestion} />
-          <ShareButton onShare={shareQuestion} />
+
+        <div className="pb-1">
+          <div className="mx-auto mb-3 flex w-fit items-center gap-1.5" aria-hidden="true">
+            {deck.questions.slice(0, 7).map((item, dotIndex) => (
+              <span
+                className={dotIndex === index % 7 ? "h-1.5 w-5 rounded-full bg-ink/50" : "h-1.5 w-1.5 rounded-full bg-ink/18"}
+                key={item.id}
+              />
+            ))}
+          </div>
+          <div className="mx-auto grid max-w-md grid-cols-6 items-center justify-items-center gap-2">
+            <button
+              aria-label="Pregunta anterior"
+              className="paper-button inline-flex h-12 items-center justify-center rounded-full px-0 text-ink"
+              onClick={goPrevious}
+              type="button"
+            >
+              <ArrowLeftIcon />
+            </button>
+            <FavoriteButton active={isFavorite} onToggle={toggleFavorite} />
+            <button
+              aria-label="Pregunta aleatoria"
+              className="paper-button inline-flex h-12 items-center justify-center rounded-full bg-marigold px-0 text-ink"
+              onClick={goRandom}
+              type="button"
+            >
+              <ShuffleIcon className="h-4 w-4" />
+            </button>
+            <CopyButton onCopy={copyQuestion} />
+            <ShareButton onShare={shareQuestion} />
+            <button
+              aria-label="Siguiente pregunta"
+              className="paper-button inline-flex h-12 items-center justify-center rounded-full bg-ink px-0 text-white"
+              onClick={goNext}
+              type="button"
+            >
+              <ArrowRightIcon />
+            </button>
+          </div>
+          <p className="mt-3 text-center text-xs font-semibold text-ink/42 sm:hidden">Desliza para cambiar de carta</p>
         </div>
       </div>
-
-      <aside className="paper-surface rounded-[1.1rem] p-5">
-        <h2 className="display-serif text-2xl font-bold text-ink">Favoritas de este mazo</h2>
-        <p className="mt-2 text-sm leading-6 text-ink/65">
-          Tienes {favoriteCount} pregunta{favoriteCount === 1 ? "" : "s"} guardada{favoriteCount === 1 ? "" : "s"} de este mazo en este dispositivo.
-        </p>
-        {deck.source ? (
-          <div className="mt-4 rounded-[0.8rem] border border-dashed border-ink/15 bg-white/45 p-3 text-xs leading-5 text-ink/62">
-            <p className="font-black text-ink/70">Referencia verificable</p>
-            <a className="mt-1 inline-flex font-bold underline decoration-dashed underline-offset-4 hover:text-ink" href={deck.source.url} rel="noreferrer" target="_blank">
-              {deck.source.label}
-            </a>
-            {deck.source.note ? <p className="mt-2">{deck.source.note}</p> : null}
-          </div>
-        ) : null}
-        <div className="mt-5 space-y-3">
-          {deck.questions
-            .filter((item) => favorites.includes(item.id))
-            .slice(0, 5)
-            .map((item) => (
-              <p className="rounded-[0.8rem] border border-dashed border-ink/15 bg-white/45 p-3 text-sm leading-6 text-ink/72" key={item.id}>
-                {item.text}
-              </p>
-            ))}
-          {favoriteCount === 0 ? (
-            <p className="rounded-[0.8rem] border border-dashed border-ink/15 bg-white/45 p-3 text-sm leading-6 text-ink/60">
-              Marca una pregunta con el corazón para volver a ella luego.
-            </p>
-          ) : null}
-        </div>
-      </aside>
     </section>
   );
 }

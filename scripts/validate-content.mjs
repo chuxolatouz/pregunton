@@ -14,8 +14,8 @@ for (const [deckIndex, block] of deckBlocks.entries()) {
   const questions = [...block.matchAll(/"([^"]+\?)"/g)].map((match) => match[1]);
   const unique = new Set(questions);
 
-  if (questions.length < 20) {
-    issues.push(`Deck ${deckIndex + 1} has ${questions.length} questions; expected at least 20.`);
+  if (questions.length < 30) {
+    issues.push(`Deck ${deckIndex + 1} has ${questions.length} questions; expected at least 30.`);
   }
 
   if (unique.size !== questions.length) {
