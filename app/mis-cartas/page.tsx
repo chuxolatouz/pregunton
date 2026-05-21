@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SavedCardsClient } from "@/components/SavedCardsClient";
 import { decks } from "@/data/decks";
+import { defaultOgImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Mis cartas guardadas",
@@ -13,7 +14,14 @@ export const metadata: Metadata = {
     description: "Preguntas favoritas guardadas en este dispositivo.",
     url: "/mis-cartas",
     type: "website",
-    locale: "es"
+    locale: "es",
+    images: [defaultOgImage]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mis cartas guardadas en Pregunton",
+    description: "Preguntas favoritas guardadas en este dispositivo.",
+    images: [defaultOgImage.url]
   }
 };
 

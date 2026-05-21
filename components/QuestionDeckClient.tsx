@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore, type TouchEvent } from "react";
 import type { Deck } from "@/data/decks";
 import { ArrowLeftIcon, ArrowRightIcon, ShuffleIcon } from "@/components/icons";
+import { BrandLogo } from "@/components/BrandLogo";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { QuestionCard } from "@/components/QuestionCard";
 import { CopyButton, ShareButton } from "@/components/ShareButton";
@@ -68,8 +69,12 @@ function useLocalFavorites() {
   return useSyncExternalStore(subscribeToFavorites, readFavorites, getServerFavoritesSnapshot);
 }
 
-export function QuestionDeckClient({ deck }: { deck: Deck }) {
-  const [index, setIndex] = useState(0);
+export function QuestionDeckClient({ deck, initialQuestionId }: { deck: Deck; initialQuestionId?: string }) {
+  const initialIndex = Math.max(
+    0,
+    initialQuestionId ? deck.questions.findIndex((item) => item.id === initialQuestionId) : 0
+  );
+  const [index, setIndex] = useState(initialIndex);
   const [status, setStatus] = useState("");
   const touchStartX = useRef<number | null>(null);
   const favorites = useLocalFavorites();
@@ -204,7 +209,8 @@ export function QuestionDeckClient({ deck }: { deck: Deck }) {
             Volver
           </Link>
           <div className="text-center">
-            <h1 id="deck-mode-title" className="text-sm font-black text-ink/72">
+            <h1 id="deck-mode-title" className="inline-flex items-center justify-center gap-2 text-sm font-black text-ink/72">
+              <BrandLogo decorative variant="mark" imageClassName="h-8 w-8" />
               {deck.title}
             </h1>
             <p className="mt-1 text-xs font-bold text-ink/42">{index + 1} / {deck.questions.length}</p>

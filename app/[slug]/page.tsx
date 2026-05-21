@@ -8,7 +8,7 @@ import { RelatedDecks } from "@/components/RelatedDecks";
 import { SEOQuestionList } from "@/components/SEOQuestionList";
 import { getDeckById, getSeoPage, seoPages } from "@/data/decks";
 import { JsonLd } from "@/lib/JsonLd";
-import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, collectionJsonLd, defaultOgImage, faqJsonLd } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -36,7 +36,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: page.ogDescription,
       url: `/${page.slug}`,
       type: "website",
-      locale: "es"
+      locale: "es",
+      images: [defaultOgImage]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.ogTitle,
+      description: page.ogDescription,
+      images: [defaultOgImage.url]
     }
   };
 }
@@ -66,7 +73,7 @@ export default async function SeoLandingPage({ params }: PageProps) {
       <section className="mx-auto grid max-w-5xl gap-7 px-4 py-8 sm:px-6 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <div>
           <p className="paper-label inline-flex rotate-[-1deg] rounded-[0.8rem] px-3 py-2 text-sm font-black uppercase tracking-[0.14em] text-coral">{page.primaryKeyword}</p>
-          <h1 className="display-serif mt-4 text-5xl font-bold leading-tight text-ink sm:text-6xl">{page.h1}</h1>
+          <h1 className="display-serif mt-4 text-4xl font-bold leading-tight text-ink sm:text-6xl">{page.h1}</h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{page.intro}</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link className="paper-button inline-flex justify-center rounded-[1rem] bg-ink px-6 py-3 text-base font-black text-white" href={`/mazo/${deck.seoSlug}`}>

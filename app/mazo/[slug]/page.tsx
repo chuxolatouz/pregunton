@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { QuestionDeckClient } from "@/components/QuestionDeckClient";
 import { getDeckBySlug, decks } from "@/data/decks";
+import { defaultOgImage } from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ q?: string }>;
 };
 
 export function generateStaticParams() {
@@ -28,19 +30,27 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: deck.description,
       url: `/mazo/${deck.seoSlug}`,
       type: "website",
-      locale: "es"
+      locale: "es",
+      images: [defaultOgImage]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${deck.title} en Pregunton`,
+      description: deck.description,
+      images: [defaultOgImage.url]
     }
   };
 }
 
-export default async function DeckModePage({ params }: PageProps) {
+export default async function DeckModePage({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const query = await searchParams;
   const deck = getDeckBySlug(slug);
   if (!deck) notFound();
 
   return (
     <main>
-      <QuestionDeckClient deck={deck} />
+      <QuestionDeckClient deck={deck} initialQuestionId={query?.q} />
     </main>
   );
 }

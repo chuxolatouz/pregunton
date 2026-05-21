@@ -2,6 +2,13 @@ import type { SeoPage } from "@/data/decks";
 import type { Deck } from "@/data/decks";
 import { absoluteUrl } from "@/lib/utils";
 
+export const defaultOgImage = {
+  url: "/brand/og-default.png",
+  width: 1200,
+  height: 630,
+  alt: "Pregunton: una excusa para conversar"
+};
+
 export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -9,7 +16,13 @@ export function websiteJsonLd() {
     name: "Pregunton",
     url: absoluteUrl("/"),
     inLanguage: "es",
-    description: "Mazos de preguntas para conversar, viajar, romper el hielo y pasar el rato."
+    description: "Mazos de preguntas para conversar, viajar, romper el hielo y pasar el rato.",
+    publisher: {
+      "@type": "Organization",
+      name: "Pregunton",
+      url: absoluteUrl("/"),
+      logo: absoluteUrl("/brand/pregunton-imagotipo.svg")
+    }
   };
 }
 

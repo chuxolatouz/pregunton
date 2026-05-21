@@ -12,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1
     },
+    {
+      url: absoluteUrl("/mazos"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85
+    },
     ...seoPages.map((page) => ({
       url: absoluteUrl(`/${page.slug}`),
       lastModified: now,

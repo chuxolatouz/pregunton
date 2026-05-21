@@ -134,7 +134,7 @@ export function SavedCardsClient({ decks }: { decks: Deck[] }) {
         <p className="paper-label inline-flex rotate-[-1deg] rounded-[0.8rem] px-3 py-2 text-sm font-black uppercase tracking-[0.14em] text-coral">
           Cartas guardadas
         </p>
-        <h1 className="display-serif mt-4 text-5xl font-bold leading-tight text-ink sm:text-6xl">Mis cartas</h1>
+        <h1 className="display-serif mt-4 text-4xl font-bold leading-tight text-ink sm:text-6xl">Mis cartas</h1>
         <p className="mt-4 text-lg leading-8 text-ink/70">{savedCountText(savedQuestions.length)}</p>
       </div>
 

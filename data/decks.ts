@@ -24,6 +24,9 @@ export type Deck = {
   description: string;
   category: string;
   tone: string;
+  intensity: QuestionIntensity;
+  tags: string[];
+  questionCount: number;
   source?: {
     label: string;
     url: string;
@@ -50,7 +53,7 @@ export type SeoPage = {
   faq?: Array<{ question: string; answer: string }>;
 };
 
-type DeckSeed = Omit<Deck, "questions"> & {
+type DeckSeed = Omit<Deck, "questions" | "questionCount"> & {
   intensity: QuestionIntensity;
   tags: string[];
   questions: string[];
@@ -1453,6 +1456,132 @@ const deckSeeds: DeckSeed[] = [
       "¿Qué detalle de esta amistad te gustaría cuidar?",
       "¿Qué haremos dentro de años y seguirá sintiéndose igual?"
     ]
+  },
+  {
+    id: "casuales",
+    title: "Preguntas casuales",
+    description: "Preguntas suaves para empezar una charla sin presión y dejar que agarre ritmo.",
+    category: "Charlar",
+    tone: "ligero, cercano y fácil",
+    seoSlug: "preguntas-casuales",
+    intensity: "casual",
+    tags: ["casual", "inicio", "conversación"],
+    questions: [
+      "¿Qué plan sencillo te acomoda casi cualquier día?",
+      "¿Qué cosa pequeña te puso de buen humor esta semana?",
+      "¿Qué comida pedirías cuando no quieres pensar demasiado?",
+      "¿Qué lugar cercano recomiendas sin dudar?",
+      "¿Qué canción te acompaña bien últimamente?",
+      "¿Qué tema ligero te gusta sacar en una charla?",
+      "¿Qué objeto cotidiano usas más de lo que imaginabas?",
+      "¿Qué plan de domingo te parece perfecto?",
+      "¿Qué recomendación reciente te salió muy buena?",
+      "¿Qué hábito pequeño hace tu día más fácil?",
+      "¿Qué sabor te recuerda a una etapa tranquila?",
+      "¿Qué serie o película recomendarías para pasarla bien?",
+      "¿Qué cosa de tu ciudad disfrutas aunque sea común?",
+      "¿Qué conversación corta te alegró hace poco?",
+      "¿Qué actividad simple te ayuda a desconectar?",
+      "¿Qué compra pequeña valió mucho la pena?",
+      "¿Qué palabra describe mejor tu energía de hoy?",
+      "¿Qué lugar elegirías para conversar sin apuro?",
+      "¿Qué detalle hace que una visita se sienta amable?",
+      "¿Qué plan improvisado casi siempre funciona contigo?",
+      "¿Qué cosa aprendiste por curiosidad y no por obligación?",
+      "¿Qué bebida acompaña mejor una charla tranquila?",
+      "¿Qué tema te parece fácil para conocer gustos?",
+      "¿Qué recuerdo cotidiano te gusta contar?",
+      "¿Qué momento del día disfrutas más cuando todo va normal?",
+      "¿Qué cosa simple te hace sentir bien recibido?",
+      "¿Qué plan repetirías sin necesitar una ocasión especial?",
+      "¿Qué pregunta suave ayuda a empezar una charla contigo?",
+      "¿Qué detalle de una persona notas rápido?",
+      "¿Qué idea pequeña te dejó pensando últimamente?"
+    ]
+  },
+  {
+    id: "fiestas",
+    title: "Preguntas para fiestas",
+    description: "Preguntas para grupos con energía alta, risas fáciles y conversaciones que circulan.",
+    category: "Grupos",
+    tone: "social, rápido y juguetón",
+    seoSlug: "preguntas-para-fiestas",
+    intensity: "fun",
+    tags: ["fiesta", "grupo", "humor"],
+    questions: [
+      "¿Qué canción hace que una fiesta empiece de verdad?",
+      "¿Qué persona aquí sería mejor DJ por una noche?",
+      "¿Qué snack desaparece primero en cualquier reunión?",
+      "¿Qué plan después de la fiesta suena más probable?",
+      "¿Qué historia corta siempre anima una mesa?",
+      "¿Qué invitado famoso sería buenísimo en esta fiesta?",
+      "¿Qué regla tonta pondrías para la próxima ronda?",
+      "¿Qué foto de esta noche tendría mejor título?",
+      "¿Qué baile secreto harías si nadie pudiera grabar?",
+      "¿Qué tema prende conversación sin ponerse intenso?",
+      "¿Qué persona aquí improvisaría mejor un brindis?",
+      "¿Qué objeto de la fiesta parece tener una historia?",
+      "¿Qué canción saltarías sin culpa?",
+      "¿Qué plan barato puede terminar siendo legendario?",
+      "¿Qué frase debería quedar como lema de la noche?",
+      "¿Qué comida pediríamos si la fiesta se alarga?",
+      "¿Qué reto suave haría reír a todos?",
+      "¿Qué recuerdo de otra fiesta todavía da risa?",
+      "¿Qué persona aquí sería mejor anfitriona y por qué?",
+      "¿Qué conversación aparece mejor cerca de la cocina?",
+      "¿Qué nombre le pondrías a esta reunión?",
+      "¿Qué momento merece contarse mañana?",
+      "¿Qué detalle hace que una fiesta se sienta cómoda?",
+      "¿Qué pregunta le harías a alguien que acabas de conocer aquí?",
+      "¿Qué canción defenderías aunque nadie más la pida?",
+      "¿Qué persona aquí inventaría el mejor juego rápido?",
+      "¿Qué historia de una fiesta anterior todavía se cuenta?",
+      "¿Qué detalle salva una reunión cuando baja la energía?",
+      "¿Qué plan espontáneo podría salir de esta noche?",
+      "¿Qué pregunta haría que todos cuenten algo distinto?"
+    ]
+  },
+  {
+    id: "tomar-decisiones",
+    title: "Preguntas para tomar decisiones",
+    description: "Preguntas claras para pensar opciones sin dramatizar ni quedarte dando vueltas.",
+    category: "Para ti",
+    tone: "claro, reflexivo y práctico",
+    seoSlug: "preguntas-para-tomar-decisiones",
+    intensity: "reflective",
+    tags: ["decisiones", "claridad", "reflexión"],
+    questions: [
+      "¿Qué opción se siente más alineada con lo que valoras ahora?",
+      "¿Qué decisión te daría más calma dentro de una semana?",
+      "¿Qué información real te falta antes de elegir?",
+      "¿Qué miedo está hablando más fuerte de lo necesario?",
+      "¿Qué opción cuidarías si no tuvieras que explicarla tanto?",
+      "¿Qué costo estás dispuesto a asumir con honestidad?",
+      "¿Qué decisión se parece más a la vida que quieres construir?",
+      "¿Qué consejo le darías a un amigo con esta misma duda?",
+      "¿Qué opción abre más posibilidades sin perderte de ti?",
+      "¿Qué parte de la decisión puede hacerse pequeña y reversible?",
+      "¿Qué señal te diría que elegiste con claridad?",
+      "¿Qué estás intentando evitar al no decidir?",
+      "¿Qué opción respeta mejor tu energía actual?",
+      "¿Qué conversación necesitas tener antes de moverte?",
+      "¿Qué pasaría si eliges lo suficientemente bueno y no perfecto?",
+      "¿Qué decisión futura agradecería tu yo de mañana?",
+      "¿Qué límite conviene poner para decidir con menos ruido?",
+      "¿Qué opción te pide valentía y cuál te pide descanso?",
+      "¿Qué aprendizaje te dejó una decisión parecida?",
+      "¿Qué estás exagerando porque estás cansado?",
+      "¿Qué cosa no cambia aunque elijas una u otra opción?",
+      "¿Qué decisión te acerca a actuar con más honestidad?",
+      "¿Qué primer paso podrías probar sin comprometer todo?",
+      "¿Qué respuesta aparece cuando bajas el volumen de la prisa?",
+      "¿Qué opción se sostiene mejor si nadie te aplaude?",
+      "¿Qué necesitas dejar de consultar para escucharte mejor?",
+      "¿Qué consecuencia puedes aceptar sin resentimiento?",
+      "¿Qué decisión se vuelve más clara después de descansar?",
+      "¿Qué parte puedes decidir hoy y cuál puede esperar?",
+      "¿Qué opción te permite cuidar mejor tus vínculos?"
+    ]
   }
 ];
 
@@ -1475,6 +1604,9 @@ export const decks: Deck[] = deckSeeds.map((seed) => ({
   description: seed.description,
   category: seed.category,
   tone: seed.tone,
+  intensity: seed.intensity,
+  tags: seed.tags,
+  questionCount: seed.questions.length,
   source: seed.source,
   seoSlug: seed.seoSlug,
   questions: buildQuestions(seed)
@@ -1875,4 +2007,18 @@ export function getSeoPage(slug: string) {
 
 export function getSeoPageByDeckId(deckId: string) {
   return seoPages.find((page) => page.deckId === deckId);
+}
+
+export function getDiscoveryDecks() {
+  return decks.map((deck) => ({
+    id: deck.id,
+    title: deck.title,
+    description: deck.description,
+    category: deck.category,
+    tone: deck.tone,
+    seoSlug: deck.seoSlug,
+    questionCount: deck.questionCount,
+    questionIds: deck.questions.map((question) => question.id),
+    seoPageSlug: getSeoPageByDeckId(deck.id)?.slug
+  }));
 }

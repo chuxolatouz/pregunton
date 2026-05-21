@@ -3,6 +3,7 @@ import type { Deck } from "@/data/decks";
 import { getSeoPageByDeckId } from "@/data/decks";
 import { deckThemeClass, getDeckTheme } from "@/lib/deckTheme";
 import { cn } from "@/lib/utils";
+import { BrandLogo } from "@/components/BrandLogo";
 import { PaperBadge } from "@/components/Paper";
 
 export function DeckCard({ deck, compact = false }: { deck: Deck; compact?: boolean }) {
@@ -18,7 +19,10 @@ export function DeckCard({ deck, compact = false }: { deck: Deck; compact?: bool
       )}
     >
       <div>
-        <PaperBadge className={deckThemeClass(deck.id, "accent")}>{deck.category}</PaperBadge>
+        <div className="flex items-start justify-between gap-3">
+          <PaperBadge className={deckThemeClass(deck.id, "accent")}>{deck.category}</PaperBadge>
+          <BrandLogo decorative variant="stamp" imageClassName="h-10 w-10 opacity-65" />
+        </div>
         <h3 className="display-serif mt-3 text-2xl font-bold leading-tight text-ink">{deck.title}</h3>
         <p className="mt-3 text-sm leading-6 text-ink/68">{deck.description}</p>
         {deck.source ? (

@@ -11,7 +11,7 @@ export function HeroSection({ featuredDeck }: { featuredDeck: Deck }) {
         <p className="paper-label mb-4 inline-flex rotate-[-1deg] rounded-[0.8rem] px-3 py-2 text-sm font-black uppercase tracking-[0.14em] text-coral">
           Mazo de conversación
         </p>
-        <h1 className="display-serif max-w-3xl text-5xl font-bold leading-[0.98] text-ink sm:text-7xl">
+        <h1 className="display-serif max-w-3xl text-4xl font-bold leading-[1.02] text-ink sm:text-7xl sm:leading-[0.98]">
           No es un quiz. Es una excusa para conversar.
         </h1>
         <p className="mt-5 max-w-xl text-lg leading-8 text-ink/70">

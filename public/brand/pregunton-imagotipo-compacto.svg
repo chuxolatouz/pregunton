@@ -1,0 +1,7 @@
+<svg width="512" height="160" viewBox="0 0 512 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Pregunton imagotipo compacto</title>
+  <desc id="desc">Imagotipo compacto de Pregunton para espacios angostos.</desc>
+  <image href="pregunton-isotipo.svg" x="0" y="0" width="160" height="160" preserveAspectRatio="xMidYMid meet"/>
+  <text x="178" y="92" fill="#2E211B" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" letter-spacing="0">Pregunton</text>
+  <path d="M182 113C233 123 304 124 371 116C414 111 447 112 474 119" stroke="#B9783B" stroke-width="5" stroke-linecap="round" opacity="0.9"/>
+</svg>

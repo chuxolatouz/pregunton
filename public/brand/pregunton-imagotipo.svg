@@ -1,0 +1,36 @@
+<svg width="820" height="256" viewBox="0 0 820 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Pregunton imagotipo</title>
+  <desc id="desc">Imagotipo de Pregunton con isotipo de mazo de cartas y palabra Pregunton.</desc>
+  <defs>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="145%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#2F241E" flood-opacity="0.15"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#2F241E" flood-opacity="0.10"/>
+    </filter>
+    <linearGradient id="paper" x1="62" y1="38" x2="190" y2="214" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9ED"/>
+      <stop offset="1" stop-color="#F1DDBB"/>
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(0 0)">
+    <rect width="256" height="256" rx="56" fill="#FFFDF8"/>
+    <g filter="url(#shadow)">
+      <rect x="72" y="49" width="123" height="158" rx="26" transform="rotate(-8 72 49)" fill="#E6C398" opacity="0.70"/>
+      <rect x="60" y="43" width="132" height="166" rx="28" transform="rotate(5 60 43)" fill="#F6E4C8" opacity="0.96" stroke="#3A2A23" stroke-width="4"/>
+      <rect x="56" y="35" width="138" height="176" rx="31" fill="url(#paper)" stroke="#33251F" stroke-width="7"/>
+    </g>
+    <path d="M163 35H194V67" fill="#EFD4B0" opacity="0.75"/>
+    <path d="M164 36C180 43 190 53 193 67" stroke="#33251F" stroke-width="5" stroke-linecap="round" opacity="0.74"/>
+    <path d="M83 70H132" stroke="#C79A62" stroke-width="5" stroke-linecap="round" opacity="0.34"/>
+    <path d="M84 188H138" stroke="#C79A62" stroke-width="5" stroke-linecap="round" opacity="0.28"/>
+    <path d="M101 166V83" stroke="#2E211B" stroke-width="17" stroke-linecap="round"/>
+    <path d="M101 84H131C154 84 170 98 170 117C170 137 154 151 131 151H101" stroke="#2E211B" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M118 166C128 173 141 174 151 168" stroke="#B9783B" stroke-width="8" stroke-linecap="round" opacity="0.95"/>
+  </g>
+
+  <g transform="translate(286 57)">
+    <text x="0" y="81" fill="#2E211B" font-family="Georgia, 'Times New Roman', serif" font-size="88" font-weight="700" letter-spacing="0">Pregunton</text>
+    <path d="M8 119C95 135 216 135 330 121C405 112 458 114 501 125" stroke="#B9783B" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+    <text x="3" y="151" fill="#5F4C3E" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="25" font-weight="800" letter-spacing="2.6">PREGUNTAS PARA CONVERSAR</text>
+  </g>
+</svg>
