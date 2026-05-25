@@ -32,6 +32,7 @@ type DeckDiscoveryProps = {
   defaultMode?: DiscoveryModeId;
   eyebrow?: string;
   intro?: string;
+  persistMode?: boolean;
 };
 
 const storageKey = "pregunton:discovery-mode";
@@ -265,12 +266,14 @@ function DiscoveryGroupCard({ decks, group, mode }: { decks: DiscoveryDeck[]; gr
   );
 }
 
-export function DeckDiscovery({ decks, defaultMode = "momentos", eyebrow = "Elige cómo quieres buscar", intro }: DeckDiscoveryProps) {
+export function DeckDiscovery({ decks, defaultMode = "momentos", eyebrow = "Elige cómo quieres buscar", intro, persistMode = true }: DeckDiscoveryProps) {
   const [mode, setMode] = useState<DiscoveryModeId>(defaultMode);
   const selectedMode = discoveryModes.find((item) => item.id === mode) ?? discoveryModes[0];
   const selectedGroups = groupSets[selectedMode.id];
 
   useEffect(() => {
+    if (!persistMode) return;
+
     try {
       const storedMode = window.localStorage.getItem(storageKey);
       if (storedMode === "momentos" || storedMode === "intensidad" || storedMode === "mesa") {
@@ -279,10 +282,12 @@ export function DeckDiscovery({ decks, defaultMode = "momentos", eyebrow = "Elig
     } catch {
       // localStorage is an enhancement; the default mode still works.
     }
-  }, []);
+  }, [persistMode]);
 
   function changeMode(nextMode: DiscoveryModeId) {
     setMode(nextMode);
+    if (!persistMode) return;
+
     try {
       window.localStorage.setItem(storageKey, nextMode);
     } catch {

@@ -37,6 +37,7 @@ export default function HomePage() {
           defaultMode="momentos"
           eyebrow="Busca por momento"
           intro="Dinos qué está pasando ahora y te mostramos mazos que sí tienen sentido para ese momento."
+          persistMode={false}
         />
       </div>
       <section className="mx-auto max-w-4xl px-4 py-10 text-center sm:px-6">

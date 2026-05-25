@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { QuestionDeckClient } from "@/components/QuestionDeckClient";
-import { getDeckBySlug, decks } from "@/data/decks";
+import { getDeckBySlug, getSeoPageByDeckId, decks } from "@/data/decks";
 import { defaultOgImage } from "@/lib/seo";
 
 type PageProps = {
@@ -47,10 +47,11 @@ export default async function DeckModePage({ params, searchParams }: PageProps) 
   const query = await searchParams;
   const deck = getDeckBySlug(slug);
   if (!deck) notFound();
+  const seoPage = getSeoPageByDeckId(deck.id);
 
   return (
     <main>
-      <QuestionDeckClient deck={deck} initialQuestionId={query?.q} />
+      <QuestionDeckClient backHref={seoPage ? `/${seoPage.slug}` : "/mazos"} deck={deck} initialQuestionId={query?.q} />
     </main>
   );
 }

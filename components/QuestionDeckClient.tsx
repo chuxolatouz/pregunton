@@ -69,7 +69,15 @@ function useLocalFavorites() {
   return useSyncExternalStore(subscribeToFavorites, readFavorites, getServerFavoritesSnapshot);
 }
 
-export function QuestionDeckClient({ deck, initialQuestionId }: { deck: Deck; initialQuestionId?: string }) {
+export function QuestionDeckClient({
+  deck,
+  initialQuestionId,
+  backHref
+}: {
+  deck: Deck;
+  initialQuestionId?: string;
+  backHref: string;
+}) {
   const initialIndex = Math.max(
     0,
     initialQuestionId ? deck.questions.findIndex((item) => item.id === initialQuestionId) : 0
@@ -205,7 +213,7 @@ export function QuestionDeckClient({ deck, initialQuestionId }: { deck: Deck; in
 
       <div className="mx-auto flex min-h-[calc(100dvh-2rem)] w-full max-w-6xl flex-col">
         <header className="flex items-center justify-between gap-3">
-          <Link className="rounded-full bg-white/45 px-3 py-2 text-sm font-black text-ink/68 shadow-sm backdrop-blur hover:text-ink" href={`/${deck.seoSlug}`}>
+          <Link className="rounded-full bg-white/45 px-3 py-2 text-sm font-black text-ink/68 shadow-sm backdrop-blur hover:text-ink" href={backHref}>
             Volver
           </Link>
           <div className="text-center">
