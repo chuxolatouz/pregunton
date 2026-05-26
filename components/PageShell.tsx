@@ -8,6 +8,7 @@ import { BrandLogo } from "@/components/BrandLogo";
 export function PageShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const isImmersiveDeck = pathname?.startsWith("/mazo/");
+  const isHome = pathname === "/";
 
   if (isImmersiveDeck) {
     return <div className="min-h-screen">{children}</div>;
@@ -21,17 +22,19 @@ export function PageShell({ children }: { children: ReactNode }) {
           <BrandLogo priority variant="compact" className="hidden sm:inline-flex lg:hidden" imageClassName="h-11 w-auto transition-transform group-hover:rotate-[-1deg]" />
           <BrandLogo priority variant="horizontal" className="hidden lg:inline-flex" imageClassName="h-12 w-auto transition-transform group-hover:rotate-[-1deg]" />
         </Link>
-        <nav aria-label="Principal" className="flex items-center gap-1.5 text-xs font-medium text-ink/70 sm:gap-3 sm:text-sm">
-          <Link className="hidden rounded-[0.8rem] px-3 py-2 font-bold hover:bg-white/50 focus-visible:bg-white sm:inline-flex" href="/mazos">
-            Mazos
-          </Link>
-          <Link className="rounded-[0.8rem] px-2 py-2 font-bold hover:bg-white/50 focus-visible:bg-white sm:px-3" href="/mis-cartas">
-            Mis cartas
-          </Link>
-          <Link className="paper-button rounded-[0.9rem] bg-ink px-3 py-2 font-black text-white sm:px-4" href="/mazo/preguntas-para-charlar">
-            Sacar carta
-          </Link>
-        </nav>
+        {!isHome ? (
+          <nav aria-label="Principal" className="flex items-center gap-1.5 text-xs font-medium text-ink/70 sm:gap-3 sm:text-sm">
+            <Link className="hidden rounded-[0.8rem] px-3 py-2 font-bold hover:bg-white/50 focus-visible:bg-white sm:inline-flex" href="/mazos">
+              Mazos
+            </Link>
+            <Link className="rounded-[0.8rem] px-2 py-2 font-bold hover:bg-white/50 focus-visible:bg-white sm:px-3" href="/mis-cartas">
+              Mis cartas
+            </Link>
+            <Link className="paper-button rounded-[0.9rem] bg-ink px-3 py-2 font-black text-white sm:px-4" href="/mazo/preguntas-para-charlar">
+              Sacar carta
+            </Link>
+          </nav>
+        ) : null}
       </header>
       {children}
       <footer className="mx-auto mt-12 max-w-6xl px-4 pb-10 pt-8 text-sm text-ink/60 sm:px-6">

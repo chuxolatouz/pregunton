@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { DeckDiscovery } from "@/components/DeckDiscovery";
+import Link from "next/link";
+import { DeckCard } from "@/components/DeckCard";
 import { HeroSection } from "@/components/HeroSection";
-import { decks, getDeckById, getDiscoveryDecks } from "@/data/decks";
+import { getDeckById, type Deck } from "@/data/decks";
 import { defaultOgImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -24,28 +25,127 @@ export const metadata: Metadata = {
   }
 };
 
+const momentShortcuts = [
+  {
+    title: "Estoy aburrido",
+    description: "Una carta rápida para cambiar el ritmo sin pensar demasiado.",
+    deckId: "aburrido",
+    className: "rotate-[-1deg] border-coral/25"
+  },
+  {
+    title: "Estoy con amigos",
+    description: "Preguntas para reírse, recordar cosas y abrir historias.",
+    deckId: "amigos",
+    className: "rotate-[0.8deg] border-moss/25"
+  },
+  {
+    title: "Estoy con mi pareja",
+    description: "Algo cálido para hablar con calma, sin sentirse interrogados.",
+    deckId: "parejas",
+    className: "rotate-[-0.4deg] border-rose/25"
+  },
+  {
+    title: "Estoy viajando",
+    description: "Para esperas, caminos largos y conversaciones de ventana.",
+    deckId: "viajar",
+    className: "rotate-[1deg] border-sky/25"
+  },
+  {
+    title: "Quiero algo profundo",
+    description: "Una pregunta serena para bajar el ruido y escuchar mejor.",
+    deckId: "profundas",
+    className: "rotate-[-0.8deg] border-ink/20"
+  },
+  {
+    title: "Quiero reírme",
+    description: "Cartas ligeras, absurdas y buenas para soltar la mesa.",
+    deckId: "reirse",
+    className: "rotate-[0.5deg] border-marigold/35"
+  }
+];
+
+const featuredDeckIds = ["charlar", "romper-hielo", "aburrido", "viajar", "parejas", "profundas"];
+
+const isDeck = (deck: Deck | undefined): deck is Deck => Boolean(deck);
+
 export default function HomePage() {
-  const featuredDeck = getDeckById("charlar") ?? decks[0];
-  const discoveryDecks = getDiscoveryDecks();
+  const featuredDecks = featuredDeckIds.map(getDeckById).filter(isDeck);
 
   return (
     <main>
-      <HeroSection featuredDeck={featuredDeck} />
-      <div id="mazos">
-        <DeckDiscovery
-          decks={discoveryDecks}
-          defaultMode="momentos"
-          eyebrow="Busca por momento"
-          intro="Dinos qué está pasando ahora y te mostramos mazos que sí tienen sentido para ese momento."
-          persistMode={false}
-        />
-      </div>
-      <section className="mx-auto max-w-4xl px-4 py-10 text-center sm:px-6">
-        <h2 className="display-serif text-3xl font-bold text-ink sm:text-4xl">
-          Hecho para leer una pregunta en voz alta
+      <HeroSection />
+
+      <section aria-labelledby="como-funciona" className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
+        <h2 id="como-funciona" className="display-serif text-center text-3xl font-bold text-ink sm:text-4xl">
+          Cómo funciona
         </h2>
-        <p className="mx-auto mt-3 max-w-2xl text-base leading-7 text-ink/68">
-          No hay respuestas correctas ni puntos. Solo una carta, una pregunta y un momento para escuchar algo que quizá no salía solo.
+        <ol className="mt-7 grid gap-3 sm:grid-cols-3">
+          {["Saca una carta.", "Léela en voz alta.", "Deja que la conversación siga."].map((step, index) => (
+            <li className="paper-surface rounded-[1rem] px-4 py-5 text-center text-base font-black text-ink" key={step}>
+              <span className="display-serif mr-2 text-2xl text-coral">{index + 1}.</span>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section aria-labelledby="elige-momento" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div className="max-w-2xl">
+          <h2 id="elige-momento" className="display-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
+            Elige el momento
+          </h2>
+          <p className="mt-3 text-lg leading-8 text-ink/68">
+            No todas las conversaciones empiezan igual. Busca una carta según dónde estás o con quién estás.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {momentShortcuts.map((shortcut) => {
+            const deck = getDeckById(shortcut.deckId);
+
+            if (!deck) {
+              return null;
+            }
+
+            return (
+              <Link
+                aria-label={`Sacar carta para ${shortcut.title.toLowerCase()}`}
+                className={`paper-surface paper-lift rounded-[1.05rem] border px-5 py-5 ${shortcut.className}`}
+                href={`/mazo/${deck.seoSlug}`}
+                key={shortcut.title}
+              >
+                <span className="display-serif block text-2xl font-bold leading-tight text-ink">{shortcut.title}</span>
+                <span className="mt-3 block text-sm leading-6 text-ink/66">{shortcut.description}</span>
+                <span className="mt-4 inline-flex text-sm font-black text-coral">Sacar carta</span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section aria-labelledby="mazos-para-empezar" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <h2 id="mazos-para-empezar" className="display-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
+              Mazos para empezar
+            </h2>
+            <p className="mt-3 text-lg leading-8 text-ink/68">
+              Una selección corta para abrir Pregunton sin convertir la home en catálogo.
+            </p>
+          </div>
+          <Link className="paper-button inline-flex min-h-12 items-center justify-center rounded-[1rem] px-5 py-3 text-sm font-black text-ink" href="/mazos">
+            Ver todos los mazos
+          </Link>
+        </div>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {featuredDecks.map((deck) => (
+            <DeckCard compact deck={deck} key={deck.id} />
+          ))}
+        </div>
+
+        <p className="mx-auto mt-10 max-w-2xl text-center text-base leading-7 text-ink/62">
+          No hay puntos ni respuestas correctas. Hay mazos para charlar, romper el hielo, viajar, reírse o entrar en una conversación más profunda.
         </p>
       </section>
     </main>
