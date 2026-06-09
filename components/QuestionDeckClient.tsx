@@ -231,7 +231,7 @@ export function QuestionDeckClient({
         <div className="relative flex flex-1 items-center justify-center py-5 sm:py-8">
           <button
             aria-label="Pregunta anterior"
-            className="paper-button paper-note-button absolute left-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full px-0 lg:inline-flex"
+            className="paper-button deck-control-button absolute left-0 top-1/2 hidden h-12 w-12 -translate-y-1/2 rounded-[1rem] px-0 lg:inline-flex"
             onClick={goPrevious}
             type="button"
           >
@@ -248,7 +248,7 @@ export function QuestionDeckClient({
 
           <button
             aria-label="Siguiente pregunta"
-            className="paper-button paper-note-button paper-note-button-next absolute right-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full px-0 lg:inline-flex"
+            className="paper-button deck-control-button deck-control-button-next absolute right-0 top-1/2 hidden h-12 w-12 -translate-y-1/2 rounded-[1rem] px-0 lg:inline-flex"
             onClick={goNext}
             type="button"
           >
@@ -265,29 +265,29 @@ export function QuestionDeckClient({
               />
             ))}
           </div>
-          <div className="mx-auto grid max-w-md grid-cols-6 items-center justify-items-center gap-2">
+          <div className="deck-control-row mx-auto flex items-center justify-center gap-2 p-1.5">
             <button
               aria-label="Pregunta anterior"
-              className="paper-button paper-note-button inline-flex h-12 items-center justify-center rounded-full px-0"
+              className="paper-button deck-control-button inline-flex items-center justify-center px-0"
               onClick={goPrevious}
               type="button"
             >
               <ArrowLeftIcon />
             </button>
-            <FavoriteButton active={isFavorite} onToggle={toggleFavorite} />
+            <FavoriteButton active={isFavorite} className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem]" onToggle={toggleFavorite} />
             <button
               aria-label="Pregunta aleatoria"
-              className="paper-button paper-note-button paper-note-button-random inline-flex h-12 items-center justify-center rounded-full px-0"
+              className="paper-button deck-control-button deck-control-button-random inline-flex items-center justify-center px-0"
               onClick={goRandom}
               type="button"
             >
               <ShuffleIcon className="h-4 w-4" />
             </button>
-            <CopyButton onCopy={copyQuestion} />
-            <ShareButton onShare={shareQuestion} />
+            <CopyButton className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem]" onCopy={copyQuestion} />
+            <ShareButton className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem]" onShare={shareQuestion} />
             <button
               aria-label="Siguiente pregunta"
-              className="paper-button paper-note-button paper-note-button-next inline-flex h-12 items-center justify-center rounded-full px-0"
+              className="paper-button deck-control-button deck-control-button-next inline-flex items-center justify-center px-0"
               onClick={goNext}
               type="button"
             >

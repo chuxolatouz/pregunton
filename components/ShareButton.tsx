@@ -2,12 +2,13 @@
 
 import { CopyIcon, ShareIcon } from "@/components/icons";
 import { PaperButton } from "@/components/Paper";
+import { cn } from "@/lib/utils";
 
-export function CopyButton({ onCopy }: { onCopy: () => void }) {
+export function CopyButton({ className, onCopy }: { className?: string; onCopy: () => void }) {
   return (
     <PaperButton
       aria-label="Copiar pregunta"
-      className="paper-note-button h-12 w-12 rounded-[0.95rem] px-0"
+      className={cn("paper-note-button h-12 w-12 rounded-[0.95rem] px-0", className)}
       onClick={onCopy}
       type="button"
     >
@@ -16,11 +17,11 @@ export function CopyButton({ onCopy }: { onCopy: () => void }) {
   );
 }
 
-export function ShareButton({ onShare }: { onShare: () => void }) {
+export function ShareButton({ className, onShare }: { className?: string; onShare: () => void }) {
   return (
     <PaperButton
       aria-label="Compartir pregunta"
-      className="paper-note-button h-12 w-12 rounded-[0.95rem] px-0"
+      className={cn("paper-note-button h-12 w-12 rounded-[0.95rem] px-0", className)}
       onClick={onShare}
       type="button"
     >
