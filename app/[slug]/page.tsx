@@ -76,7 +76,7 @@ export default async function SeoLandingPage({ params }: PageProps) {
           <h1 className="display-serif mt-4 text-4xl font-bold leading-tight text-ink sm:text-6xl">{page.h1}</h1>
           <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{page.intro}</p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link className="paper-button inline-flex justify-center rounded-[1rem] bg-ink px-6 py-3 text-base font-black text-white" href={`/mazo/${deck.seoSlug}`}>
+            <Link className="paper-button paper-button-ink inline-flex justify-center rounded-[1rem] px-6 py-3 text-base font-black text-white" href={`/mazo/${deck.seoSlug}`}>
               Abrir en modo cartas
             </Link>
             <a className="paper-button inline-flex justify-center rounded-[1rem] px-6 py-3 text-base font-black text-ink" href="#preguntas">

@@ -10,7 +10,9 @@ export function Breadcrumbs({ current }: { current: string }) {
           </Link>
         </li>
         <li aria-hidden="true">/</li>
-        <li aria-current="page">{current}</li>
+        <li aria-current="page" className="max-w-[14rem] truncate sm:max-w-none">
+          {current}
+        </li>
       </ol>
     </nav>
   );

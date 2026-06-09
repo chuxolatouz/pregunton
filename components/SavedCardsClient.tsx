@@ -59,9 +59,9 @@ function writeFavorites(nextFavorites: string[]) {
 }
 
 function savedCountText(count: number) {
-  if (count === 0) return "No tienes preguntas guardadas todavía.";
-  if (count === 1) return "Tienes 1 pregunta guardada.";
-  return `Tienes ${count} preguntas guardadas.`;
+  if (count === 0) return "No tienes cartas guardadas todavía.";
+  if (count === 1) return "Tienes 1 carta guardada.";
+  return `Tienes ${count} cartas guardadas.`;
 }
 
 async function copyText(text: string) {
@@ -141,9 +141,9 @@ export function SavedCardsClient({ decks }: { decks: Deck[] }) {
       {savedQuestions.length === 0 ? (
         <div className="paper-surface mt-8 rounded-[1.2rem] p-6">
           <p className="text-base leading-7 text-ink/70">
-            Cuando una pregunta te guste, toca el corazón en modo cartas. Aquí aparecerán tus favoritas de este dispositivo.
+            Cuando una pregunta te guste, toca el corazón. Aquí aparecerá.
           </p>
-          <Link className="paper-button mt-5 inline-flex rounded-[1rem] bg-ink px-5 py-3 font-black text-white" href="/mazo/preguntas-para-charlar">
+          <Link className="paper-button paper-button-ink mt-5 inline-flex rounded-[1rem] px-5 py-3 font-black text-white" href="/mazo/preguntas-para-charlar">
             Sacar carta
           </Link>
         </div>

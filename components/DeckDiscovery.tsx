@@ -83,7 +83,7 @@ const accentClasses: Record<DiscoveryAccent, { text: string; border: string; bg:
     text: "text-ink",
     border: "border-ink/15",
     bg: "bg-ink/[0.04]",
-    button: "bg-ink text-white hover:bg-ink/90",
+    button: "paper-button-ink text-white",
     wash: "from-ink/[0.07]"
   }
 };
@@ -120,7 +120,7 @@ function RandomQuestionButton({
     <button
       className={cn(
         "paper-button inline-flex min-h-12 items-center justify-center gap-2 rounded-[0.95rem] px-4 text-sm font-black",
-        variant === "dark" ? "bg-ink text-white" : "text-ink",
+        variant === "dark" ? "paper-button-ink text-white" : "text-ink",
         className
       )}
       disabled={!candidates.length}
@@ -182,7 +182,7 @@ function DeckStackLink({ deck, index }: { deck: DiscoveryDeck; index: number }) 
         <p className="mt-2 text-sm leading-6 text-ink/66">{deck.description}</p>
       </div>
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        <Link className="paper-button rounded-[0.85rem] bg-ink px-4 py-2 text-sm font-black text-white" href={`/mazo/${deck.seoSlug}`}>
+        <Link className="paper-button paper-button-ink rounded-[0.85rem] px-4 py-2 text-sm font-black text-white" href={`/mazo/${deck.seoSlug}`}>
           Sacar carta
         </Link>
         {deck.seoPageSlug ? (

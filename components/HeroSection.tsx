@@ -1,33 +1,26 @@
-import Link from "next/link";
+import { HeroQuestionCard, PaperLink } from "@/components/Paper";
 
 export function HeroSection() {
   return (
-    <section className="mx-auto grid min-h-[calc(100svh-5.5rem)] max-w-6xl items-center gap-10 px-4 pb-14 pt-8 sm:px-6 lg:grid-cols-[0.96fr_1.04fr] lg:gap-14 lg:pb-18">
-      <div className="max-w-xl">
-        <h1 className="display-serif text-5xl font-bold leading-[0.98] text-ink sm:text-7xl sm:leading-[0.94]">
+    <section className="mx-auto grid min-h-[calc(100svh-5.75rem)] max-w-6xl items-center gap-7 px-4 pb-10 pt-4 sm:px-6 sm:pt-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
+      <div className="max-w-[34rem]">
+        <h1 className="display-serif text-4xl font-bold leading-[0.98] text-ink min-[380px]:text-5xl sm:text-7xl sm:leading-[0.94]">
           A veces una pregunta basta.
         </h1>
-        <p className="mt-5 text-lg leading-8 text-ink/72 sm:text-xl sm:leading-9">
+        <p className="mt-4 max-w-[32rem] text-base leading-7 text-ink/72 sm:mt-5 sm:text-xl sm:leading-9">
           Saca una carta para romper el silencio, empezar una charla o descubrir algo nuevo de alguien.
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <Link className="paper-button inline-flex min-h-12 items-center justify-center rounded-[1rem] bg-ink px-6 py-3 text-base font-black text-white" href="/mazo/preguntas-random">
+          <PaperLink className="px-6 text-base" href="/mazo/preguntas-random" tone="ink">
             Sacar una carta
-          </Link>
-          <Link className="inline-flex min-h-12 items-center justify-center rounded-[1rem] px-4 py-3 text-base font-black text-ink/70 underline decoration-dashed underline-offset-8 transition hover:text-ink focus-visible:text-ink" href="/mazos">
+          </PaperLink>
+          <PaperLink className="px-4 text-base" href="/mazos" tone="quiet">
             Ver mazos
-          </Link>
+          </PaperLink>
         </div>
       </div>
-      <div className="flex justify-center lg:justify-end">
-        <article className="paper-surface paper-stack w-full max-w-md rotate-[1.4deg] rounded-[1.35rem] px-6 py-8 shadow-none sm:px-8 sm:py-10">
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-coral">
-            Carta para empezar
-          </p>
-          <p className="display-serif mt-8 text-3xl font-bold leading-tight text-ink sm:text-4xl">
-            “¿Qué canción pondrías para cambiar el mood de este momento?”
-          </p>
-        </article>
+      <div className="flex justify-center pb-5 lg:justify-end lg:pb-0">
+        <HeroQuestionCard />
       </div>
     </section>
   );

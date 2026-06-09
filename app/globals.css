@@ -137,6 +137,15 @@ a {
     box-shadow: 0 10px 0 rgba(77, 62, 42, 0.08), 0 20px 32px rgba(74, 57, 35, 0.14);
   }
 
+  .paper-button-ink {
+    background: var(--paper-ink);
+    color: #fffaf0;
+  }
+
+  .paper-button-ink:hover {
+    background: #1f1b12;
+  }
+
   .paper-button:active {
     transform: translateY(1px);
     box-shadow: 0 4px 0 rgba(77, 62, 42, 0.08), 0 10px 18px rgba(74, 57, 35, 0.12);

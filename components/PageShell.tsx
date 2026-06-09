@@ -30,7 +30,7 @@ export function PageShell({ children }: { children: ReactNode }) {
             <Link className="rounded-[0.8rem] px-2 py-2 font-bold hover:bg-white/50 focus-visible:bg-white sm:px-3" href="/mis-cartas">
               Mis cartas
             </Link>
-            <Link className="paper-button rounded-[0.9rem] bg-ink px-3 py-2 font-black text-white sm:px-4" href="/mazo/preguntas-para-charlar">
+            <Link className="paper-button paper-button-ink rounded-[0.9rem] px-3 py-2 font-black text-white sm:px-4" href="/mazo/preguntas-para-charlar">
               Sacar carta
             </Link>
           </nav>

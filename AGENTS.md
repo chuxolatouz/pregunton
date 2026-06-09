@@ -104,6 +104,60 @@ Avoid generic startup landing pages, corporate SaaS layouts, meaningless gradien
 - Keep category and deck navigation visible or easy to return to.
 - Do not make users scroll past generic marketing content before seeing questions.
 
+## UI Quality System
+
+Pregunton must not rely on generic AI-generated UI.
+
+Before major UI work:
+1. Use visual-identity-director.
+2. Use cognitive-load-reducer for page structure.
+3. Use ui-component-craftsperson for reusable components.
+4. Use interaction-polish-specialist for behavior and microcopy.
+5. Use screenshot-design-reviewer after implementation.
+6. Use ux-polish-reviewer before final output.
+
+## Design quality rules
+
+- Design with real content, not placeholders.
+- Prompt by component when possible.
+- Reduce cognitive load before adding features.
+- Use screenshots for visual review.
+- Preserve a small design system.
+- Prefer progressive disclosure.
+- Avoid generic SaaS layouts.
+- Avoid default shadcn appearance.
+- Avoid visual drift between pages.
+- Do not add features above the fold unless they serve the first action.
+
+## Pregunton screen architecture
+
+Home:
+- purpose
+- one primary action
+- calm intro
+- gradual discovery
+
+/mazos:
+- full discovery
+- Momentos
+- Intensidad
+- Mesa
+
+/mazo/[id]:
+- one question
+- minimal controls
+- no distractions
+
+SEO pages:
+- indexable question lists
+- intro
+- FAQ
+- related links
+
+/mis-cartas:
+- saved cards
+- calm empty state
+
 ## Component Rules
 
 - Prefer existing project components and patterns when present.

@@ -248,7 +248,7 @@ export function QuestionDeckClient({
 
           <button
             aria-label="Siguiente pregunta"
-            className="paper-button absolute right-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full bg-ink px-0 text-white lg:inline-flex"
+            className="paper-button paper-button-ink absolute right-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full px-0 text-white lg:inline-flex"
             onClick={goNext}
             type="button"
           >
@@ -287,7 +287,7 @@ export function QuestionDeckClient({
             <ShareButton onShare={shareQuestion} />
             <button
               aria-label="Siguiente pregunta"
-              className="paper-button inline-flex h-12 items-center justify-center rounded-full bg-ink px-0 text-white"
+              className="paper-button paper-button-ink inline-flex h-12 items-center justify-center rounded-full px-0 text-white"
               onClick={goNext}
               type="button"
             >

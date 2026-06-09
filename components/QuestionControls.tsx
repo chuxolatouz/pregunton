@@ -33,8 +33,9 @@ export function QuestionControls({
       </PaperButton>
       <PaperButton
         aria-label="Siguiente pregunta"
-        className="bg-ink px-4 text-white"
+        className="px-4"
         onClick={onNext}
+        tone="ink"
         type="button"
       >
         <ArrowRightIcon />
