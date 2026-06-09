@@ -7,7 +7,7 @@ export function CopyButton({ onCopy }: { onCopy: () => void }) {
   return (
     <PaperButton
       aria-label="Copiar pregunta"
-      className="h-12 w-12 rounded-[0.95rem] px-0 text-ink"
+      className="paper-note-button h-12 w-12 rounded-[0.95rem] px-0"
       onClick={onCopy}
       type="button"
     >
@@ -20,7 +20,7 @@ export function ShareButton({ onShare }: { onShare: () => void }) {
   return (
     <PaperButton
       aria-label="Compartir pregunta"
-      className="h-12 w-12 rounded-[0.95rem] px-0 text-ink"
+      className="paper-note-button h-12 w-12 rounded-[0.95rem] px-0"
       onClick={onShare}
       type="button"
     >

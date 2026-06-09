@@ -14,7 +14,7 @@ export function FavoriteButton({
     <PaperButton
       aria-label={active ? "Quitar de favoritos" : "Guardar en favoritos"}
       aria-pressed={active}
-      className="h-12 w-12 rounded-[0.95rem] px-0 text-coral"
+      className="paper-note-button h-12 w-12 rounded-[0.95rem] px-0 text-coral"
       onClick={onToggle}
       type="button"
     >

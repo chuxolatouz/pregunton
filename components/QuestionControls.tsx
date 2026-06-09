@@ -16,7 +16,7 @@ export function QuestionControls({
     <div className="grid grid-cols-[1fr_1.2fr_1fr] gap-3">
       <PaperButton
         aria-label="Pregunta anterior"
-        className="px-4"
+        className="paper-note-button px-4"
         onClick={onPrevious}
         type="button"
       >
@@ -24,7 +24,7 @@ export function QuestionControls({
       </PaperButton>
       <PaperButton
         aria-label="Pregunta aleatoria"
-        className="gap-2 bg-marigold"
+        className="paper-note-button paper-note-button-random gap-2"
         onClick={onRandom}
         type="button"
       >
@@ -33,9 +33,8 @@ export function QuestionControls({
       </PaperButton>
       <PaperButton
         aria-label="Siguiente pregunta"
-        className="px-4"
+        className="paper-note-button paper-note-button-next px-4"
         onClick={onNext}
-        tone="ink"
         type="button"
       >
         <ArrowRightIcon />

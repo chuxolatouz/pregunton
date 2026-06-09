@@ -209,7 +209,7 @@ export function QuestionDeckClient({
       onTouchEnd={onTouchEnd}
       onTouchStart={onTouchStart}
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_10%,rgba(255,250,240,0.9),transparent_30rem),linear-gradient(180deg,#f7edda,#efe0c6)]" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_10%,rgba(255,253,247,0.92),transparent_30rem),linear-gradient(180deg,#f9f2e7,#f4ead8)]" />
 
       <div className="mx-auto flex min-h-[calc(100dvh-2rem)] w-full max-w-6xl flex-col">
         <header className="flex items-center justify-between gap-3">
@@ -231,7 +231,7 @@ export function QuestionDeckClient({
         <div className="relative flex flex-1 items-center justify-center py-5 sm:py-8">
           <button
             aria-label="Pregunta anterior"
-            className="paper-button absolute left-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full px-0 text-ink lg:inline-flex"
+            className="paper-button paper-note-button absolute left-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full px-0 lg:inline-flex"
             onClick={goPrevious}
             type="button"
           >
@@ -248,7 +248,7 @@ export function QuestionDeckClient({
 
           <button
             aria-label="Siguiente pregunta"
-            className="paper-button paper-button-ink absolute right-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full px-0 text-white lg:inline-flex"
+            className="paper-button paper-note-button paper-note-button-next absolute right-0 top-1/2 hidden h-14 w-14 -translate-y-1/2 rounded-full px-0 lg:inline-flex"
             onClick={goNext}
             type="button"
           >
@@ -268,7 +268,7 @@ export function QuestionDeckClient({
           <div className="mx-auto grid max-w-md grid-cols-6 items-center justify-items-center gap-2">
             <button
               aria-label="Pregunta anterior"
-              className="paper-button inline-flex h-12 items-center justify-center rounded-full px-0 text-ink"
+              className="paper-button paper-note-button inline-flex h-12 items-center justify-center rounded-full px-0"
               onClick={goPrevious}
               type="button"
             >
@@ -277,7 +277,7 @@ export function QuestionDeckClient({
             <FavoriteButton active={isFavorite} onToggle={toggleFavorite} />
             <button
               aria-label="Pregunta aleatoria"
-              className="paper-button inline-flex h-12 items-center justify-center rounded-full bg-marigold px-0 text-ink"
+              className="paper-button paper-note-button paper-note-button-random inline-flex h-12 items-center justify-center rounded-full px-0"
               onClick={goRandom}
               type="button"
             >
@@ -287,7 +287,7 @@ export function QuestionDeckClient({
             <ShareButton onShare={shareQuestion} />
             <button
               aria-label="Siguiente pregunta"
-              className="paper-button paper-button-ink inline-flex h-12 items-center justify-center rounded-full px-0 text-white"
+              className="paper-button paper-note-button paper-note-button-next inline-flex h-12 items-center justify-center rounded-full px-0"
               onClick={goNext}
               type="button"
             >

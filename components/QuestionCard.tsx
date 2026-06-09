@@ -15,7 +15,7 @@ export function QuestionCardStatic({
   className?: string;
 }) {
   return (
-    <article className={cn("paper-surface paper-stack paper-lift relative max-w-full overflow-hidden rounded-[1.35rem] p-7 sm:rotate-[-1deg]", className)}>
+    <article className={cn("paper-surface question-paper-card paper-stack paper-lift relative max-w-full overflow-hidden rounded-[1.35rem] p-7 sm:rotate-[-1deg]", className)}>
       <div className={cn("absolute right-5 top-5 grid h-16 w-16 place-items-center rounded-full border border-dashed opacity-70", deckId ? deckThemeClass(deckId, "soft") : "border-coral/30")}>
         <BrandLogo decorative variant="stamp" imageClassName="h-10 w-10 opacity-70" />
       </div>
@@ -42,7 +42,7 @@ export function QuestionCard({
   footer?: string;
 }) {
   return (
-    <article className="paper-surface paper-stack relative flex min-h-[50dvh] w-full max-w-[calc(100vw-2rem)] flex-col justify-between overflow-hidden rounded-[1.65rem] px-6 py-7 shadow-2xl sm:min-h-[56dvh] sm:max-w-3xl sm:px-10 sm:py-9">
+    <article className="paper-surface question-paper-card paper-stack relative flex min-h-[50dvh] w-full max-w-[calc(100vw-2rem)] flex-col justify-between overflow-hidden rounded-[1.65rem] px-6 py-7 sm:min-h-[56dvh] sm:max-w-3xl sm:px-10 sm:py-9">
       <div className="pointer-events-none absolute right-6 top-6 h-20 w-20 rounded-full border border-dashed border-ink/10" />
       <div className="relative z-10 flex items-center justify-between gap-4">
         <PaperBadge className={deckThemeClass(deckId, "accent")}>{deckTitle}</PaperBadge>
