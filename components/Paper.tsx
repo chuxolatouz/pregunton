@@ -68,11 +68,10 @@ export function HeroQuestionCard({ className }: { className?: string }) {
   return (
     <PaperSurface
       aria-label="Carta de ejemplo"
-      className={cn("w-full max-w-[18.5rem] rotate-[1.2deg] rounded-[1.2rem] px-4 py-5 min-[380px]:max-w-[20rem] sm:max-w-md sm:rounded-[1.35rem] sm:px-8 sm:py-10", className)}
-      stack
+      className={cn("hero-paper-card w-full max-w-[min(18rem,calc(100vw-3rem))] rotate-[0.8deg] overflow-hidden rounded-[1.2rem] px-4 py-5 sm:max-w-md sm:rotate-[1.2deg] sm:rounded-[1.35rem] sm:px-8 sm:py-10", className)}
     >
       <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-coral sm:text-xs">Carta para empezar</p>
-      <p className="display-serif mt-5 text-xl font-bold leading-tight text-ink min-[380px]:text-2xl sm:mt-8 sm:text-4xl">
+      <p className="display-serif mt-5 text-xl font-bold leading-tight text-ink min-[380px]:text-[1.45rem] sm:mt-8 sm:text-4xl">
         &ldquo;¿Qué canción pondrías para cambiar el mood de este momento?&rdquo;
       </p>
     </PaperSurface>

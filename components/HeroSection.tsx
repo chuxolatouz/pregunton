@@ -3,7 +3,7 @@ import { HeroQuestionCard, PaperLink } from "@/components/Paper";
 export function HeroSection() {
   return (
     <section className="mx-auto grid min-h-[calc(100svh-5.75rem)] max-w-6xl items-center gap-7 px-4 pb-10 pt-4 sm:px-6 sm:pt-8 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
-      <div className="max-w-[34rem]">
+      <div className="min-w-0 max-w-[34rem]">
         <h1 className="display-serif text-4xl font-bold leading-[0.98] text-ink min-[380px]:text-5xl sm:text-7xl sm:leading-[0.94]">
           A veces una pregunta basta.
         </h1>
@@ -19,7 +19,7 @@ export function HeroSection() {
           </PaperLink>
         </div>
       </div>
-      <div className="flex justify-center pb-5 lg:justify-end lg:pb-0">
+      <div className="flex min-w-0 justify-start pb-5 pl-[clamp(1.5rem,13vw,4rem)] sm:justify-center sm:pl-0 lg:justify-end lg:pb-0">
         <HeroQuestionCard />
       </div>
     </section>
