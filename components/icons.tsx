@@ -98,3 +98,53 @@ export function SparkIcon(props: IconProps) {
     </IconBase>
   );
 }
+
+export function FlameIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <path d="M12 22c3.7 0 6.5-2.6 6.5-6.3 0-2.6-1.4-4.7-3.6-6.5.1 1.5-.5 2.5-1.7 3.2.1-3.4-1.7-6.2-4.4-8.4.2 3.2-1.4 5-2.7 6.7-1 1.3-1.6 2.7-1.6 4.8C4.5 19.2 7.9 22 12 22Z" />
+      <path d="M12.1 18.8c1.5 0 2.6-1 2.6-2.5 0-1.2-.6-2.1-1.7-3-.1 1-.6 1.7-1.4 2.1 0-1.5-.7-2.8-1.9-3.8.1 1.5-.7 2.5-1.2 3.4-.4.6-.6 1.1-.6 1.8 0 1.2 1.3 2 4.2 2Z" />
+    </IconBase>
+  );
+}
+
+export function SmileIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M8.6 10h.1" />
+      <path d="M15.3 10h.1" />
+      <path d="M8.8 14.2c1.7 1.6 4.7 1.6 6.4 0" />
+    </IconBase>
+  );
+}
+
+export function PlaneIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <path d="M21 3 9.8 14.2" />
+      <path d="m21 3-7.1 18-4.1-6.8L3 10.1 21 3Z" />
+    </IconBase>
+  );
+}
+
+export function MoonIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <path d="M19.6 14.3A7.7 7.7 0 0 1 9.7 4.4 8.3 8.3 0 1 0 19.6 14.3Z" />
+    </IconBase>
+  );
+}
+
+export function ConfettiIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <path d="m4 20 5.2-15.2 10 10L4 20Z" />
+      <path d="m8.4 7.3 8.3 8.3" />
+      <path d="M14 4.5h.1" />
+      <path d="M18.5 6.5 20 5" />
+      <path d="M19.5 10.5h1.8" />
+      <path d="M11.5 3.2 11 1.8" />
+    </IconBase>
+  );
+}

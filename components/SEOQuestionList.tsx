@@ -1,5 +1,5 @@
 import type { Deck } from "@/data/decks";
-import { deckThemeClass } from "@/lib/deckTheme";
+import { deckThemeClass, getDeckThemeStyle } from "@/lib/deckTheme";
 
 export function SEOQuestionList({ deck, title }: { deck: Deck; title: string }) {
   return (
@@ -12,7 +12,7 @@ export function SEOQuestionList({ deck, title }: { deck: Deck; title: string }) 
       </p>
       <ol className="mt-6 grid gap-3">
         {deck.questions.map((question, index) => (
-          <li className="paper-surface rounded-[0.9rem] p-4" key={question.id}>
+          <li className="paper-surface rounded-[0.9rem] p-4" key={question.id} style={getDeckThemeStyle(deck.id)}>
             <span className={deckThemeClass(deck.id, "accent", "mr-2 font-mono text-sm font-black")}>{String(index + 1).padStart(2, "0")}.</span>
             <span className="text-base leading-7 text-ink">{question.text}</span>
           </li>

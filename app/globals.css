@@ -53,7 +53,7 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid rgba(63, 111, 99, 0.72);
+  outline: 3px solid rgba(239, 122, 95, 0.78);
   outline-offset: 4px;
 }
 
@@ -105,6 +105,56 @@ a {
     inset: 15px 14px -15px 14px;
     background: #f1e2ca;
     transform: rotate(1.4deg);
+  }
+
+  .deck-stack-card {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .deck-stack-front {
+    z-index: 1;
+    min-height: inherit;
+    transition:
+      transform 200ms ease-out,
+      box-shadow 200ms ease-out,
+      border-color 200ms ease-out;
+  }
+
+  .deck-stack-card::before,
+  .deck-stack-card::after {
+    content: "";
+    position: absolute;
+    inset: 9px 10px -9px 10px;
+    z-index: -1;
+    border: 1px solid var(--deck-border);
+    border-radius: inherit;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.34), transparent 42%),
+      var(--deck-paper);
+    box-shadow: 0 9px 20px rgba(74, 57, 35, 0.08);
+    opacity: 0.82;
+    transform: rotate(var(--deck-stack-front));
+    transition: transform 200ms ease-out, opacity 200ms ease-out;
+  }
+
+  .deck-stack-card::after {
+    inset: 17px 18px -17px 18px;
+    opacity: 0.58;
+    transform: rotate(var(--deck-stack-back));
+  }
+
+  .deck-stack-card:hover .deck-stack-front {
+    box-shadow: var(--paper-shadow-lift);
+    transform: translateY(-3px);
+  }
+
+  .deck-stack-card:hover::before {
+    transform: rotate(calc(var(--deck-stack-front) + 1deg)) translateY(-1px);
+  }
+
+  .deck-stack-card:hover::after {
+    transform: rotate(calc(var(--deck-stack-back) - 0.8deg));
   }
 
   .paper-lift {
@@ -160,6 +210,24 @@ a {
   .hero-paper-card > * {
     position: relative;
     z-index: 1;
+  }
+
+  .hero-question-demo {
+    cursor: pointer;
+    transform: rotate(1.2deg);
+    transition:
+      transform 210ms ease-out,
+      box-shadow 210ms ease-out,
+      border-color 210ms ease-out;
+  }
+
+  .hero-question-demo:hover {
+    box-shadow: var(--paper-shadow-lift);
+    transform: rotate(0.4deg) translateY(-2px);
+  }
+
+  .hero-question-demo.is-shuffling {
+    animation: hero-card-shuffle 380ms ease-out;
   }
 
   .paper-button {
@@ -285,6 +353,18 @@ a {
   }
 }
 
+@keyframes hero-card-shuffle {
+  0% {
+    transform: rotate(0.4deg) translateY(-2px);
+  }
+  45% {
+    transform: rotate(-2deg) translateY(-4px) scale(0.985);
+  }
+  100% {
+    transform: rotate(1.2deg) translateY(0) scale(1);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -293,5 +373,16 @@ a {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .paper-lift:hover,
+  .deck-stack-card:hover .deck-stack-front,
+  .hero-question-demo,
+  .hero-question-demo:hover,
+  .hero-question-demo.is-shuffling,
+  .deck-stack-card:hover::before,
+  .deck-stack-card:hover::after {
+    animation: none !important;
+    transform: none !important;
   }
 }

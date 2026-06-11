@@ -38,9 +38,25 @@ export function PageShell({ children }: { children: ReactNode }) {
       </header>
       {children}
       <footer className="mx-auto mt-12 max-w-6xl px-4 pb-10 pt-8 text-sm text-ink/60 sm:px-6">
-        <div className="flex flex-col gap-4 border-t border-dashed border-ink/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <BrandLogo variant="compact" imageClassName="h-10 w-auto opacity-90" />
-          <p className="max-w-xl sm:text-right">Pregunton es una excusa simple para conversar mejor. Sin puntos, sin respuestas correctas.</p>
+        <div className="grid gap-6 border-t border-dashed border-ink/15 pt-6 sm:grid-cols-[1fr_auto] sm:items-start">
+          <div>
+            <BrandLogo variant="compact" imageClassName="h-10 w-auto opacity-90" />
+            <p className="mt-3 max-w-xl">Pregunton es una excusa simple para conversar mejor. Sin puntos, sin respuestas correctas.</p>
+          </div>
+          <nav aria-label="Enlaces del pie" className="flex flex-wrap gap-x-4 gap-y-2 font-bold text-ink/70 sm:justify-end">
+            <Link className="underline decoration-dashed underline-offset-4 hover:text-ink focus-visible:text-ink" href="/mazos">
+              Mazos
+            </Link>
+            <Link className="underline decoration-dashed underline-offset-4 hover:text-ink focus-visible:text-ink" href="/preguntas-random">
+              Random
+            </Link>
+            <Link className="underline decoration-dashed underline-offset-4 hover:text-ink focus-visible:text-ink" href="/preguntas-para-parejas">
+              Parejas
+            </Link>
+            <Link className="underline decoration-dashed underline-offset-4 hover:text-ink focus-visible:text-ink" href="/preguntas-para-amigos">
+              Amigos
+            </Link>
+          </nav>
         </div>
       </footer>
     </div>

@@ -1,92 +1,230 @@
+import type { CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 
 type DeckTheme = {
+  slug: string;
+  name: string;
+  accentColor: string;
+  accentInk: string;
+  paperColor: string;
+  icon: "flame" | "smile" | "heart" | "plane" | "moon" | "confetti";
   card: string;
   accent: string;
   soft: string;
   button: string;
+  stackRotation: {
+    front: string;
+    back: string;
+  };
 };
 
 const themes: Record<string, DeckTheme> = {
   charlar: {
-    card: "border-moss/18",
-    accent: "text-moss",
-    soft: "bg-moss/[0.08] border-moss/20",
-    button: "paper-note-button border-moss/25 text-ink"
+    slug: "charlar",
+    name: "Charlar",
+    accentColor: "#BA7517",
+    accentInk: "#70400A",
+    paperColor: "#FAC775",
+    icon: "smile",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "-1.8deg", back: "1.2deg" }
   },
   aburrido: {
-    card: "border-marigold/24",
-    accent: "text-marigold",
-    soft: "bg-marigold/[0.14] border-marigold/25",
-    button: "paper-note-button paper-note-button-random text-ink"
+    slug: "aburrido",
+    name: "Aburrimiento",
+    accentColor: "#D85A30",
+    accentInk: "#803019",
+    paperColor: "#F5C4B3",
+    icon: "flame",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button paper-note-button-random text-[color:var(--deck-ink)]",
+    stackRotation: { front: "1.6deg", back: "-1.1deg" }
   },
   viajar: {
-    card: "border-sky/22",
-    accent: "text-sky",
-    soft: "bg-sky/[0.12] border-sky/25",
-    button: "paper-note-button border-sky/25 text-ink"
+    slug: "viajar",
+    name: "Viaje",
+    accentColor: "#0F6E56",
+    accentInk: "#084130",
+    paperColor: "#9FE1CB",
+    icon: "plane",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "-1.2deg", back: "2deg" }
   },
   roadtrip: {
-    card: "border-coral/22",
-    accent: "text-coral",
-    soft: "bg-coral/10 border-coral/20",
-    button: "paper-note-button border-coral/25 text-ink"
+    slug: "roadtrip",
+    name: "Roadtrip",
+    accentColor: "#0F6E56",
+    accentInk: "#084130",
+    paperColor: "#9FE1CB",
+    icon: "plane",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "1.1deg", back: "-2deg" }
   },
   amigos: {
-    card: "border-lavender/22",
-    accent: "text-lavender",
-    soft: "bg-lavender/10 border-lavender/20",
-    button: "paper-note-button border-lavender/25 text-ink"
+    slug: "amigos",
+    name: "Amigos",
+    accentColor: "#BA7517",
+    accentInk: "#70400A",
+    paperColor: "#FAC775",
+    icon: "smile",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "2deg", back: "-1.4deg" }
   },
   parejas: {
-    card: "border-coral/22",
-    accent: "text-coral",
-    soft: "bg-coral/[0.12] border-coral/20",
-    button: "paper-note-button border-coral/25 text-ink"
+    slug: "parejas",
+    name: "Pareja",
+    accentColor: "#D4537E",
+    accentInk: "#7F2846",
+    paperColor: "#F4C0D1",
+    icon: "heart",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "-2deg", back: "1deg" }
   },
   "36-preguntas-enamorarse": {
-    card: "border-coral/20",
-    accent: "text-coral",
-    soft: "bg-[#fff3e6] border-coral/20",
-    button: "paper-note-button border-coral/25 text-ink"
+    slug: "36-preguntas-enamorarse",
+    name: "Pareja",
+    accentColor: "#D4537E",
+    accentInk: "#7F2846",
+    paperColor: "#F4C0D1",
+    icon: "heart",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "1.4deg", back: "-1.7deg" }
   },
   "primera-cita": {
-    card: "border-coral/20",
-    accent: "text-coral",
-    soft: "bg-coral/10 border-coral/20",
-    button: "paper-note-button border-coral/25 text-ink"
+    slug: "primera-cita",
+    name: "Citas",
+    accentColor: "#D4537E",
+    accentInk: "#7F2846",
+    paperColor: "#F4C0D1",
+    icon: "heart",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "-1.6deg", back: "1.9deg" }
   },
   "romper-hielo": {
-    card: "border-moss/20",
-    accent: "text-moss",
-    soft: "bg-moss/[0.08] border-moss/20",
-    button: "paper-note-button border-moss/25 text-ink"
+    slug: "romper-hielo",
+    name: "Romper el hielo",
+    accentColor: "#185FA5",
+    accentInk: "#0D3B69",
+    paperColor: "#B5D4F4",
+    icon: "confetti",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "1.9deg", back: "-1.2deg" }
   },
   profundas: {
-    card: "border-ink/12",
-    accent: "text-ink",
-    soft: "bg-ink/[0.04] border-ink/10",
-    button: "paper-note-button paper-note-button-next text-ink"
+    slug: "profundas",
+    name: "Profundo",
+    accentColor: "#534AB7",
+    accentInk: "#302A75",
+    paperColor: "#CECBF6",
+    icon: "moon",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button paper-note-button-next text-[color:var(--deck-ink)]",
+    stackRotation: { front: "-1.1deg", back: "1.7deg" }
   },
   random: {
-    card: "border-marigold/24",
-    accent: "text-marigold",
-    soft: "bg-marigold/[0.14] border-marigold/25",
-    button: "paper-note-button paper-note-button-random text-ink"
+    slug: "random",
+    name: "Random",
+    accentColor: "#D85A30",
+    accentInk: "#803019",
+    paperColor: "#F5C4B3",
+    icon: "flame",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button paper-note-button-random text-[color:var(--deck-ink)]",
+    stackRotation: { front: "1.7deg", back: "-1.5deg" }
+  },
+  reirse: {
+    slug: "reirse",
+    name: "Risa",
+    accentColor: "#185FA5",
+    accentInk: "#0D3B69",
+    paperColor: "#B5D4F4",
+    icon: "confetti",
+    card: "border-[color:var(--deck-border)]",
+    accent: "text-[color:var(--deck-accent)]",
+    soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+    button: "paper-note-button border-[color:var(--deck-border)] text-[color:var(--deck-ink)]",
+    stackRotation: { front: "-1.9deg", back: "1.3deg" }
   }
 };
 
 const fallback: DeckTheme = {
-  card: "border-ink/10",
-  accent: "text-coral",
-  soft: "bg-paper border-ink/10",
-  button: "paper-note-button paper-note-button-next text-ink"
+  slug: "default",
+  name: "Mazo",
+  accentColor: "#D85A30",
+  accentInk: "#803019",
+  paperColor: "#F5C4B3",
+  icon: "flame",
+  card: "border-[color:var(--deck-border)]",
+  accent: "text-[color:var(--deck-accent)]",
+  soft: "bg-[color:var(--deck-paper-soft)] border-[color:var(--deck-border)]",
+  button: "paper-note-button paper-note-button-next text-[color:var(--deck-ink)]",
+  stackRotation: { front: "-1.4deg", back: "1.4deg" }
+};
+
+const themeAliases: Record<string, keyof typeof themes> = {
+  "noche-aburrida": "aburrido",
+  "viaje-pareja": "parejas",
+  "viaje-amigos": "viajar",
+  playa: "viajar",
+  "conocer-alguien": "romper-hielo",
+  whatsapp: "romper-hielo",
+  cena: "charlar",
+  familia: "charlar",
+  hermanos: "amigos",
+  "companeros-trabajo": "romper-hielo",
+  "team-building": "romper-hielo",
+  filosoficas: "profundas",
+  journaling: "profundas"
 };
 
 export function getDeckTheme(deckId: string) {
-  return themes[deckId] ?? fallback;
+  return themes[deckId] ?? themes[themeAliases[deckId]] ?? fallback;
 }
 
-export function deckThemeClass(deckId: string, key: keyof DeckTheme, extra?: string) {
+export function getDeckThemeStyle(deckId: string) {
+  const theme = getDeckTheme(deckId);
+
+  return {
+    "--deck-accent": theme.accentColor,
+    "--deck-ink": theme.accentInk,
+    "--deck-paper": theme.paperColor,
+    "--deck-paper-soft": `${theme.paperColor}66`,
+    "--deck-border": `${theme.accentColor}33`,
+    "--deck-stack-front": theme.stackRotation.front,
+    "--deck-stack-back": theme.stackRotation.back
+  } as CSSProperties;
+}
+
+export function deckThemeClass(deckId: string, key: "card" | "accent" | "soft" | "button", extra?: string) {
   return cn(getDeckTheme(deckId)[key], extra);
 }

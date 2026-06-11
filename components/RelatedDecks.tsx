@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getSeoPage, getDeckById } from "@/data/decks";
-import { deckThemeClass } from "@/lib/deckTheme";
+import { deckThemeClass, getDeckThemeStyle } from "@/lib/deckTheme";
 
 export function RelatedDecks({ slugs }: { slugs: string[] }) {
   const related = slugs
@@ -23,7 +23,7 @@ export function RelatedDecks({ slugs }: { slugs: string[] }) {
       </h2>
       <div className="mt-5 grid gap-3 sm:grid-cols-3">
         {related.map(({ page, deck }) => (
-          <Link className="paper-surface paper-lift rounded-[1rem] p-4" href={`/${page.slug}`} key={page.slug}>
+          <Link className="paper-surface paper-lift rounded-[1rem] p-4" href={`/${page.slug}`} key={page.slug} style={getDeckThemeStyle(deck.id)}>
             <p className={deckThemeClass(deck.id, "accent", "text-sm font-black")}>{deck.category}</p>
             <p className="display-serif mt-2 text-xl font-bold leading-tight text-ink">{deck.title}</p>
             <p className="mt-2 text-sm leading-6 text-ink/62">{deck.description}</p>
