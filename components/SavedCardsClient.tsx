@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useSyncExternalStore } from "react";
 import type { Deck, Question } from "@/data/decks";
+import { getDeckThemeStyle } from "@/lib/deckTheme";
+import { DeckThemeIcon } from "@/components/DeckThemeIcon";
 import { CopyButton, ShareButton } from "@/components/ShareButton";
 import { HeartIcon } from "@/components/icons";
 
@@ -139,34 +141,47 @@ export function SavedCardsClient({ decks }: { decks: Deck[] }) {
       </div>
 
       {savedQuestions.length === 0 ? (
-        <div className="paper-surface mt-8 rounded-[1.2rem] p-6">
-          <p className="text-base leading-7 text-ink/70">
+        <div className="deck-stack-card mt-8 max-w-2xl rounded-[1.2rem]" style={getDeckThemeStyle("charlar")}>
+          <div className="paper-surface deck-stack-front rounded-[1.2rem] border-[color:var(--deck-border)] p-6">
+            <div className="grid h-12 w-12 place-items-center rounded-[1rem] border border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-accent)]">
+              <HeartIcon />
+            </div>
+            <h2 className="display-serif mt-5 text-xl font-bold leading-tight text-ink sm:text-2xl">Todavía no guardaste cartas</h2>
+            <p className="mt-3 text-base leading-7 text-ink/70">
             Cuando una pregunta te guste, toca el corazón. Aquí aparecerá.
-          </p>
-          <Link className="paper-button paper-button-ink mt-5 inline-flex rounded-[1rem] px-5 py-3 font-black text-white" href="/mazo/preguntas-para-charlar">
-            Sacar carta
-          </Link>
+            </p>
+            <Link className="paper-button paper-button-ink mt-5 inline-flex rounded-[1rem] px-5 py-3 font-black text-white" href="/mazo/preguntas-para-charlar">
+              Sacar carta
+            </Link>
+          </div>
         </div>
       ) : (
-        <ol className="mt-8 grid gap-4">
+        <ol className="mt-8 grid gap-5">
           {savedQuestions.map((question) => (
-            <li className="paper-surface rounded-[1.1rem] p-5" key={question.id}>
-              <p className="text-sm font-black text-coral">{question.deckTitle}</p>
-              <p className="display-serif mt-3 text-2xl font-bold leading-tight text-ink">“{question.text}”</p>
-              <div className="mt-5 flex flex-wrap items-center gap-3">
-                <Link className="paper-button inline-flex min-h-12 items-center rounded-[0.95rem] px-4 text-sm font-black" href={`/mazo/${question.deckSlug}`}>
-                  Abrir mazo
-                </Link>
-                <CopyButton onCopy={() => copyText(question.shareText ?? question.text)} />
-                <ShareButton onShare={() => shareQuestion(question)} />
-                <button
-                  aria-label="Quitar de guardadas"
-                  className="paper-button inline-flex h-12 w-12 items-center justify-center rounded-[0.95rem] px-0 text-coral"
-                  onClick={() => removeFavorite(question.id)}
-                  type="button"
-                >
-                  <HeartIcon filled />
-                </button>
+            <li className="deck-stack-card rounded-[1.15rem]" key={question.id} style={getDeckThemeStyle(question.deckId)}>
+              <div className="paper-surface deck-stack-front rounded-[1.15rem] border-[color:var(--deck-border)] p-5">
+                <div className="flex items-start justify-between gap-4">
+                  <p className="text-sm font-black text-[color:var(--deck-accent)]">{question.deckTitle}</p>
+                  <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-[0.9rem] border border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-accent)]">
+                    <DeckThemeIcon className="h-5 w-5" deckId={question.deckId} />
+                  </span>
+                </div>
+                <p className="display-serif mt-3 text-2xl font-bold leading-tight text-ink">“{question.text}”</p>
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <Link className="paper-button paper-note-button inline-flex min-h-12 items-center rounded-[0.95rem] border-[color:var(--deck-border)] px-4 text-sm font-black text-[color:var(--deck-ink)]" href={`/mazo/${question.deckSlug}`}>
+                    Abrir mazo
+                  </Link>
+                  <CopyButton className="border-[color:var(--deck-border)] text-[color:var(--deck-ink)]" onCopy={() => copyText(question.shareText ?? question.text)} />
+                  <ShareButton className="border-[color:var(--deck-border)] text-[color:var(--deck-ink)]" onShare={() => shareQuestion(question)} />
+                  <button
+                    aria-label="Quitar de guardadas"
+                    className="paper-button paper-note-button inline-flex h-12 w-12 items-center justify-center rounded-[0.95rem] border-[color:var(--deck-border)] px-0 text-[color:var(--deck-accent)]"
+                    onClick={() => removeFavorite(question.id)}
+                    type="button"
+                  >
+                    <HeartIcon filled />
+                  </button>
+                </div>
               </div>
             </li>
           ))}

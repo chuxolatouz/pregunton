@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore, type TouchEvent } from "react";
 import type { Deck } from "@/data/decks";
+import { getDeckThemeStyle } from "@/lib/deckTheme";
 import { ArrowLeftIcon, ArrowRightIcon, ShuffleIcon } from "@/components/icons";
-import { BrandLogo } from "@/components/BrandLogo";
+import { DeckThemeIcon } from "@/components/DeckThemeIcon";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { QuestionCard } from "@/components/QuestionCard";
 import { CopyButton, ShareButton } from "@/components/ShareButton";
@@ -205,25 +206,26 @@ export function QuestionDeckClient({
   return (
     <section
       aria-labelledby="deck-mode-title"
-      className="relative isolate flex min-h-[100dvh] overflow-hidden px-4 py-4 sm:px-6 sm:py-6"
+      className="deck-mode-shell relative isolate flex min-h-[100dvh] overflow-hidden px-4 py-4 sm:px-6 sm:py-6"
       onTouchEnd={onTouchEnd}
       onTouchStart={onTouchStart}
+      style={getDeckThemeStyle(deck.id)}
     >
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_10%,rgba(255,253,247,0.92),transparent_30rem),linear-gradient(180deg,#f9f2e7,#f4ead8)]" />
-
       <div className="mx-auto flex min-h-[calc(100dvh-2rem)] w-full max-w-6xl flex-col">
         <header className="flex items-center justify-between gap-3">
-          <Link className="rounded-full bg-white/45 px-3 py-2 text-sm font-black text-ink/68 shadow-sm backdrop-blur hover:text-ink" href={backHref}>
+          <Link className="rounded-full border border-[color:var(--deck-border)] bg-white/55 px-3 py-2 text-sm font-black text-[color:var(--deck-ink)] shadow-sm backdrop-blur hover:bg-white focus-visible:bg-white" href={backHref}>
             Volver
           </Link>
           <div className="text-center">
             <h1 id="deck-mode-title" className="inline-flex items-center justify-center gap-2 text-sm font-black text-ink/72">
-              <BrandLogo decorative variant="mark" imageClassName="h-8 w-8" />
+              <span aria-hidden="true" className="grid h-8 w-8 place-items-center rounded-[0.75rem] border border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-accent)]">
+                <DeckThemeIcon className="h-[1.125rem] w-[1.125rem]" deckId={deck.id} />
+              </span>
               {deck.title}
             </h1>
             <p className="mt-1 text-xs font-bold text-ink/42">{index + 1} / {deck.questions.length}</p>
           </div>
-          <Link className="rounded-full bg-white/45 px-3 py-2 text-sm font-black text-ink/68 shadow-sm backdrop-blur hover:text-ink" href="/mis-cartas">
+          <Link className="rounded-full border border-[color:var(--deck-border)] bg-white/55 px-3 py-2 text-sm font-black text-[color:var(--deck-ink)] shadow-sm backdrop-blur hover:bg-white focus-visible:bg-white" href="/mis-cartas">
             Guardadas
           </Link>
         </header>
@@ -231,7 +233,7 @@ export function QuestionDeckClient({
         <div className="relative flex flex-1 items-center justify-center py-5 sm:py-8">
           <button
             aria-label="Pregunta anterior"
-            className="paper-button deck-control-button absolute left-0 top-1/2 hidden h-12 w-12 -translate-y-1/2 rounded-[1rem] px-0 lg:inline-flex"
+            className="paper-button deck-control-button absolute left-0 top-1/2 hidden h-12 w-12 -translate-y-1/2 rounded-[1rem] border-[color:var(--deck-border)] px-0 text-[color:var(--deck-ink)] lg:inline-flex"
             onClick={goPrevious}
             type="button"
           >
@@ -248,7 +250,7 @@ export function QuestionDeckClient({
 
           <button
             aria-label="Siguiente pregunta"
-            className="paper-button deck-control-button deck-control-button-next absolute right-0 top-1/2 hidden h-12 w-12 -translate-y-1/2 rounded-[1rem] px-0 lg:inline-flex"
+            className="paper-button deck-control-button deck-control-button-next absolute right-0 top-1/2 hidden h-12 w-12 -translate-y-1/2 rounded-[1rem] border-[color:var(--deck-border)] px-0 text-[color:var(--deck-ink)] lg:inline-flex"
             onClick={goNext}
             type="button"
           >
@@ -260,7 +262,7 @@ export function QuestionDeckClient({
           <div className="mx-auto mb-3 flex w-fit items-center gap-1.5" aria-hidden="true">
             {deck.questions.slice(0, 7).map((item, dotIndex) => (
               <span
-                className={dotIndex === index % 7 ? "h-1.5 w-5 rounded-full bg-ink/50" : "h-1.5 w-1.5 rounded-full bg-ink/18"}
+                className={dotIndex === index % 7 ? "h-1.5 w-5 rounded-full bg-[color:var(--deck-accent)]" : "h-1.5 w-1.5 rounded-full bg-ink/18"}
                 key={item.id}
               />
             ))}
@@ -268,26 +270,26 @@ export function QuestionDeckClient({
           <div className="deck-control-row mx-auto flex items-center justify-center gap-2 p-1.5">
             <button
               aria-label="Pregunta anterior"
-              className="paper-button deck-control-button inline-flex items-center justify-center px-0"
+              className="paper-button deck-control-button inline-flex items-center justify-center border-[color:var(--deck-border)] px-0 text-[color:var(--deck-ink)]"
               onClick={goPrevious}
               type="button"
             >
               <ArrowLeftIcon />
             </button>
-            <FavoriteButton active={isFavorite} className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem]" onToggle={toggleFavorite} />
+            <FavoriteButton active={isFavorite} className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem] border-[color:var(--deck-border)] text-[color:var(--deck-accent)]" onToggle={toggleFavorite} />
             <button
               aria-label="Pregunta aleatoria"
-              className="paper-button deck-control-button deck-control-button-random inline-flex items-center justify-center px-0"
+              className="paper-button deck-control-button deck-control-button-random inline-flex items-center justify-center border-[color:var(--deck-border)] px-0 text-[color:var(--deck-ink)]"
               onClick={goRandom}
               type="button"
             >
               <ShuffleIcon className="h-4 w-4" />
             </button>
-            <CopyButton className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem]" onCopy={copyQuestion} />
-            <ShareButton className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem]" onShare={shareQuestion} />
+            <CopyButton className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem] border-[color:var(--deck-border)] text-[color:var(--deck-ink)]" onCopy={copyQuestion} />
+            <ShareButton className="deck-control-button min-h-11 h-11 w-11 rounded-[1rem] border-[color:var(--deck-border)] text-[color:var(--deck-ink)]" onShare={shareQuestion} />
             <button
               aria-label="Siguiente pregunta"
-              className="paper-button deck-control-button deck-control-button-next inline-flex items-center justify-center px-0"
+              className="paper-button deck-control-button deck-control-button-next inline-flex items-center justify-center border-[color:var(--deck-border)] px-0 text-[color:var(--deck-ink)]"
               onClick={goNext}
               type="button"
             >

@@ -12,8 +12,10 @@ import {
   type DiscoveryGroup,
   type DiscoveryModeId
 } from "@/data/deckDiscovery";
+import { getDeckThemeStyle } from "@/lib/deckTheme";
 import { cn } from "@/lib/utils";
-import { ShuffleIcon, SparkIcon } from "@/components/icons";
+import { DeckThemeIcon } from "@/components/DeckThemeIcon";
+import { ShuffleIcon } from "@/components/icons";
 
 export type DiscoveryDeck = {
   id: string;
@@ -162,10 +164,12 @@ function ModeToggle({ mode, onChange }: { mode: DiscoveryModeId; onChange: (mode
 function DeckPill({ deck }: { deck: DiscoveryDeck }) {
   return (
     <Link
-      className="group relative inline-flex min-h-10 items-center rounded-[0.75rem] border border-ink/12 bg-white/58 px-3 py-2 text-sm font-black text-ink shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
+      className="group relative inline-flex min-h-10 items-center gap-2 rounded-[0.75rem] border border-[color:var(--deck-border)] bg-white/60 px-3 py-2 text-sm font-black text-[color:var(--deck-ink)] shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
       href={`/mazo/${deck.seoSlug}`}
+      style={getDeckThemeStyle(deck.id)}
     >
-      <span className="absolute inset-x-2 -bottom-1 -z-10 h-3 rotate-[-1.5deg] rounded-[0.7rem] border border-ink/10 bg-[#eadbc2]" />
+      <span className="absolute inset-x-2 -bottom-1 -z-10 h-3 rotate-[-1.5deg] rounded-[0.7rem] border border-[color:var(--deck-border)] bg-[color:var(--deck-paper)]" />
+      <DeckThemeIcon className="h-4 w-4 text-[color:var(--deck-accent)]" deckId={deck.id} />
       {deck.title.replace("Preguntas ", "")}
     </Link>
   );
@@ -175,21 +179,28 @@ function DeckStackLink({ deck, index }: { deck: DiscoveryDeck; index: number }) 
   const rotation = ["rotate-[-1deg]", "rotate-[0.6deg]", "rotate-[-0.4deg]", "rotate-[1deg]"][index % 4];
 
   return (
-    <article className={cn("paper-surface paper-stack paper-lift flex min-h-[13.5rem] flex-col justify-between rounded-[1.05rem] p-4", rotation)}>
-      <div>
-        <p className="text-xs font-black uppercase tracking-[0.14em] text-ink/45">{deck.category}</p>
-        <h3 className="display-serif mt-2 text-2xl font-bold leading-tight text-ink">{deck.title}</h3>
-        <p className="mt-2 text-sm leading-6 text-ink/66">{deck.description}</p>
-      </div>
-      <div className="mt-4 flex flex-wrap items-center gap-2">
-        <Link className="paper-button paper-button-ink rounded-[0.85rem] px-4 py-2 text-sm font-black text-white" href={`/mazo/${deck.seoSlug}`}>
-          Sacar carta
-        </Link>
-        {deck.seoPageSlug ? (
-          <Link className="rounded-[0.85rem] px-3 py-2 text-sm font-black text-ink/62 hover:bg-white/55 hover:text-ink" href={`/${deck.seoPageSlug}`}>
-            Ver lista
+    <article className={cn("deck-stack-card min-h-[14.5rem] rounded-[1.15rem]", rotation)} style={getDeckThemeStyle(deck.id)}>
+      <div className="paper-surface deck-stack-front flex h-full flex-col justify-between rounded-[1.15rem] border-[color:var(--deck-border)] p-4">
+        <div>
+          <div className="flex items-start justify-between gap-3">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-[color:var(--deck-ink)]">{deck.category}</p>
+            <span aria-hidden="true" className="grid h-9 w-9 shrink-0 place-items-center rounded-[0.8rem] border border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-accent)]">
+              <DeckThemeIcon className="h-5 w-5" deckId={deck.id} />
+            </span>
+          </div>
+          <h3 className="display-serif mt-2 text-2xl font-bold leading-tight text-ink">{deck.title}</h3>
+          <p className="mt-2 text-sm leading-6 text-ink/66">{deck.description}</p>
+        </div>
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <Link className="paper-button paper-note-button rounded-[0.85rem] border-[color:var(--deck-border)] px-4 py-2 text-sm font-black text-[color:var(--deck-ink)]" href={`/mazo/${deck.seoSlug}`}>
+            Sacar carta
           </Link>
-        ) : null}
+          {deck.seoPageSlug ? (
+            <Link className="rounded-[0.85rem] px-3 py-2 text-sm font-black text-[color:var(--deck-ink)] underline decoration-dashed underline-offset-8 hover:text-ink" href={`/${deck.seoPageSlug}`}>
+              Ver lista
+            </Link>
+          ) : null}
+        </div>
       </div>
     </article>
   );
@@ -208,16 +219,16 @@ function IntensityMarks({ level, accent }: { level?: number; accent: DiscoveryAc
 }
 
 function DiscoveryGroupCard({ decks, group, mode }: { decks: DiscoveryDeck[]; group: DiscoveryGroup; mode: DiscoveryModeId }) {
-  const accent = accentClasses[group.accent];
   const groupDecks = group.deckIds.map((id) => decks.find((deck) => deck.id === id)).filter((deck): deck is DiscoveryDeck => Boolean(deck));
   const isMesa = mode === "mesa";
+  const themeDeckId = groupDecks[0]?.id ?? "random";
 
   if (isMesa) {
     return (
-      <section aria-labelledby={`${group.id}-title`} className="py-3">
+      <section aria-labelledby={`${group.id}-title`} className="py-3" style={getDeckThemeStyle(themeDeckId)}>
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className={cn("paper-label inline-flex rotate-[-1deg] rounded-[0.7rem] px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em]", accent.text)}>
+            <p className="paper-label inline-flex rotate-[-1deg] rounded-[0.7rem] border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] px-3 py-1.5 text-xs font-black uppercase tracking-[0.14em] text-[color:var(--deck-ink)]">
               {groupDecks.length} mazos
             </p>
             <h3 id={`${group.id}-title`} className="display-serif mt-3 text-3xl font-bold text-ink">
@@ -225,7 +236,7 @@ function DiscoveryGroupCard({ decks, group, mode }: { decks: DiscoveryDeck[]; gr
             </h3>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-ink/65">{group.description}</p>
           </div>
-          <RandomQuestionButton className={accent.button} deckIds={group.deckIds} decks={decks} variant="plain">
+          <RandomQuestionButton className="border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-ink)]" deckIds={group.deckIds} decks={decks} variant="plain">
             {group.cta}
           </RandomQuestionButton>
         </div>
@@ -239,15 +250,17 @@ function DiscoveryGroupCard({ decks, group, mode }: { decks: DiscoveryDeck[]; gr
   }
 
   return (
-    <article className={cn("paper-surface paper-lift overflow-hidden rounded-[1.1rem] border p-5", accent.border)}>
-      <div className={cn("pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b to-transparent", accent.wash)} />
+    <article className="paper-surface paper-lift overflow-hidden rounded-[1.1rem] border border-[color:var(--deck-border)] p-5" style={getDeckThemeStyle(themeDeckId)}>
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[color:var(--deck-paper-soft)] to-transparent" />
       <div className="relative">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className={cn("text-xs font-black uppercase tracking-[0.14em]", accent.text)}>{mode === "momentos" ? "Momento" : "Tono"}</p>
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-[color:var(--deck-accent)]">{mode === "momentos" ? "Momento" : "Tono"}</p>
             <h3 className="display-serif mt-2 text-3xl font-bold leading-tight text-ink">{group.title}</h3>
           </div>
-          <SparkIcon className={cn("mt-1 h-6 w-6", accent.text)} />
+          <span aria-hidden="true" className="grid h-11 w-11 shrink-0 place-items-center rounded-[0.95rem] border border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-accent)]">
+            <DeckThemeIcon deckId={themeDeckId} />
+          </span>
         </div>
         <p className="mt-3 text-sm leading-6 text-ink/68">{group.description}</p>
         <div className="mt-4">
@@ -258,7 +271,7 @@ function DiscoveryGroupCard({ decks, group, mode }: { decks: DiscoveryDeck[]; gr
             <DeckPill deck={deck} key={deck.id} />
           ))}
         </div>
-        <RandomQuestionButton className={cn("mt-6 w-full sm:w-auto", accent.button)} deckIds={group.deckIds} decks={decks} variant="plain">
+        <RandomQuestionButton className="mt-6 w-full border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-ink)] sm:w-auto" deckIds={group.deckIds} decks={decks} variant="plain">
           {group.cta}
         </RandomQuestionButton>
       </div>

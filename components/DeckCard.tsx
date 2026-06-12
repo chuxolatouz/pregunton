@@ -3,22 +3,12 @@ import type { Deck } from "@/data/decks";
 import { getSeoPageByDeckId } from "@/data/decks";
 import { getDeckTheme, getDeckThemeStyle } from "@/lib/deckTheme";
 import { cn } from "@/lib/utils";
+import { DeckThemeIcon } from "@/components/DeckThemeIcon";
 import { PaperBadge } from "@/components/Paper";
-import { ConfettiIcon, FlameIcon, HeartIcon, MoonIcon, PlaneIcon, SmileIcon } from "@/components/icons";
-
-const deckIcons = {
-  flame: FlameIcon,
-  smile: SmileIcon,
-  heart: HeartIcon,
-  plane: PlaneIcon,
-  moon: MoonIcon,
-  confetti: ConfettiIcon
-};
 
 export function DeckCard({ deck, compact = false }: { deck: Deck; compact?: boolean }) {
   const seo = getSeoPageByDeckId(deck.id);
   const theme = getDeckTheme(deck.id);
-  const Icon = deckIcons[theme.icon];
 
   return (
     <article
@@ -36,7 +26,7 @@ export function DeckCard({ deck, compact = false }: { deck: Deck; compact?: bool
               aria-hidden="true"
               className="grid h-11 w-11 shrink-0 place-items-center rounded-[0.95rem] border border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-accent)]"
             >
-              <Icon className="h-6 w-6" />
+              <DeckThemeIcon deckId={deck.id} />
             </span>
           </div>
           <h3 className="display-serif mt-3 text-2xl font-bold leading-tight text-ink">{deck.title}</h3>

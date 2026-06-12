@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { deckThemeClass, getDeckThemeStyle } from "@/lib/deckTheme";
-import { BrandLogo } from "@/components/BrandLogo";
+import { DeckThemeIcon } from "@/components/DeckThemeIcon";
 import { PaperBadge } from "@/components/Paper";
 
 export function QuestionCardStatic({
@@ -15,9 +15,9 @@ export function QuestionCardStatic({
   className?: string;
 }) {
   return (
-    <article className={cn("paper-surface question-paper-card paper-stack paper-lift relative max-w-full overflow-hidden rounded-[1.35rem] p-7 sm:rotate-[-1deg]", className)} style={deckId ? getDeckThemeStyle(deckId) : undefined}>
+    <article className={cn("paper-surface question-paper-card paper-lift relative max-w-full overflow-hidden rounded-[1.35rem] p-7 sm:rotate-[-1deg]", className)} style={deckId ? getDeckThemeStyle(deckId) : undefined}>
       <div className={cn("absolute right-5 top-5 grid h-16 w-16 place-items-center rounded-full border border-dashed opacity-70", deckId ? deckThemeClass(deckId, "soft") : "border-coral/30")}>
-        <BrandLogo decorative variant="stamp" imageClassName="h-10 w-10 opacity-70" />
+        {deckId ? <DeckThemeIcon className={deckThemeClass(deckId, "accent", "h-8 w-8")} deckId={deckId} /> : null}
       </div>
       <PaperBadge className={deckId ? deckThemeClass(deckId, "accent") : "text-coral"}>
         {deckTitle}
@@ -42,7 +42,7 @@ export function QuestionCard({
   footer?: string;
 }) {
   return (
-    <article className="paper-surface question-paper-card paper-stack relative flex min-h-[50dvh] w-full max-w-[calc(100vw-2rem)] flex-col justify-between overflow-hidden rounded-[1.65rem] px-6 py-7 sm:min-h-[56dvh] sm:max-w-3xl sm:px-10 sm:py-9" style={getDeckThemeStyle(deckId)}>
+    <article className="paper-surface question-paper-card relative flex min-h-[50dvh] w-full max-w-[calc(100vw-2rem)] flex-col justify-between overflow-hidden rounded-[1.65rem] border-[color:var(--deck-border)] px-6 py-7 sm:min-h-[56dvh] sm:max-w-3xl sm:px-10 sm:py-9" style={getDeckThemeStyle(deckId)}>
       <div className="pointer-events-none absolute right-6 top-6 h-20 w-20 rounded-full border border-dashed border-ink/10" />
       <div className="relative z-10 flex items-center justify-between gap-4">
         <PaperBadge className={deckThemeClass(deckId, "accent")}>{deckTitle}</PaperBadge>
@@ -57,7 +57,7 @@ export function QuestionCard({
       </div>
       <div className="relative z-10 flex items-center justify-between border-t border-dashed border-ink/15 pt-4 text-xs font-bold uppercase tracking-[0.14em] text-ink/42">
         <span>{footer ?? "Pregunta para leer"}</span>
-        <BrandLogo decorative variant="compact" imageClassName="h-7 w-auto opacity-55" />
+        <DeckThemeIcon className={deckThemeClass(deckId, "accent", "h-5 w-5 opacity-70")} deckId={deckId} />
       </div>
     </article>
   );
