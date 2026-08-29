@@ -37,6 +37,25 @@ export function ArrowRightIcon(props: IconProps) {
   );
 }
 
+export function HomeIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <path d="m3 10 9-7 9 7" />
+      <path d="M5 9v11h14V9" />
+      <path d="M9 20v-6h6v6" />
+    </IconBase>
+  );
+}
+
+export function CardStackIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <rect height="14" rx="2.5" width="14" x="7" y="3" />
+      <path d="M4 7v10a3 3 0 0 0 3 3h10" />
+    </IconBase>
+  );
+}
+
 export function ShuffleIcon(props: IconProps) {
   return (
     <IconBase {...props}>

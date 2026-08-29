@@ -42,7 +42,7 @@ export function QuestionCard({
   footer?: string;
 }) {
   return (
-    <article className="paper-surface question-paper-card relative flex min-h-[50dvh] w-full max-w-[calc(100vw-2rem)] flex-col justify-between overflow-hidden rounded-[1.65rem] border-[color:var(--deck-border)] px-6 py-7 sm:min-h-[56dvh] sm:max-w-3xl sm:px-10 sm:py-9" style={getDeckThemeStyle(deckId)}>
+    <article className="paper-surface question-paper-card question-card-enter relative flex min-h-[49dvh] w-full max-w-full flex-col justify-between overflow-hidden rounded-[1.6rem] border-[color:var(--deck-border)] px-6 py-7 sm:min-h-[56dvh] sm:px-10 sm:py-9" style={getDeckThemeStyle(deckId)}>
       <div className="pointer-events-none absolute right-6 top-6 h-20 w-20 rounded-full border border-dashed border-ink/10" />
       <div className="relative z-10 flex items-center justify-between gap-4">
         <PaperBadge className={deckThemeClass(deckId, "accent")}>{deckTitle}</PaperBadge>
@@ -51,7 +51,7 @@ export function QuestionCard({
         </p>
       </div>
       <div className="relative z-10 flex flex-1 items-center py-8 text-center sm:py-10">
-        <p className="display-serif mx-auto max-w-2xl break-words text-[clamp(1.7rem,6vw,4.35rem)] font-bold leading-[1.04] text-ink sm:leading-[1.02]">
+        <p className="display-serif mx-auto max-w-2xl break-words text-[clamp(1.8rem,6vw,4.35rem)] font-semibold leading-[1.03] text-ink sm:leading-[1.01]">
           “{question}”
         </p>
       </div>

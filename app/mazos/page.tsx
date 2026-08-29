@@ -30,16 +30,16 @@ export const metadata: Metadata = {
 export default function MazosPage() {
   return (
     <main>
-      <section className="mx-auto grid max-w-6xl gap-7 px-4 pb-6 pt-8 sm:px-6 lg:grid-cols-[1fr_0.75fr] lg:items-end">
+      <section className="mx-auto grid max-w-6xl gap-7 px-4 pb-4 pt-7 sm:px-6 sm:pb-6 sm:pt-10 lg:grid-cols-[1fr_0.75fr] lg:items-end">
         <div>
           <p className="paper-label inline-flex rotate-[-1deg] rounded-[0.8rem] px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-coral">
             Biblioteca de mazos
           </p>
-          <h1 className="display-serif mt-4 max-w-4xl text-4xl font-bold leading-tight text-ink sm:text-6xl">
-            Elige el mazo por momento, tono o mesa completa
+          <h1 className="display-serif mt-4 max-w-4xl text-[2.5rem] font-semibold leading-[0.98] text-ink sm:text-6xl">
+            Mazos de preguntas para este momento
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-ink/70">
-            La misma colección vista de tres formas: para decidir rápido, ajustar la intensidad o explorar todos los mazos como cartas sobre la mesa.
+          <p className="mt-4 max-w-2xl text-base leading-7 text-ink/66 sm:text-lg sm:leading-8">
+            Busca por momento, ajusta la intensidad o abre todos los mazos sobre la mesa.
           </p>
         </div>
         <div className="relative hidden min-h-48 lg:block" aria-hidden="true">

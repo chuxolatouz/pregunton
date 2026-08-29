@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type KeyboardEvent } from "react";
 import {
   deckCategoryGroups,
   discoveryModes,
@@ -136,21 +136,36 @@ function RandomQuestionButton({
 }
 
 function ModeToggle({ mode, onChange }: { mode: DiscoveryModeId; onChange: (mode: DiscoveryModeId) => void }) {
+  function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+
+    event.preventDefault();
+    const currentIndex = discoveryModes.findIndex((item) => item.id === mode);
+    const direction = event.key === "ArrowRight" ? 1 : -1;
+    const nextIndex = (currentIndex + direction + discoveryModes.length) % discoveryModes.length;
+    const nextMode = discoveryModes[nextIndex];
+    onChange(nextMode.id);
+    document.getElementById(`discovery-tab-${nextMode.id}`)?.focus();
+  }
+
   return (
-    <div aria-label="Modo de descubrimiento" className="flex w-full gap-1 overflow-x-auto rounded-[1rem] border border-ink/10 bg-white/40 p-1 shadow-sm sm:w-auto" role="tablist">
+    <div aria-label="Modo de descubrimiento" className="flex w-full gap-1 overflow-x-auto rounded-[1rem] border border-ink/10 bg-white/40 p-1 shadow-sm sm:w-auto" onKeyDown={onKeyDown} role="tablist">
       {discoveryModes.map((item) => {
         const selected = mode === item.id;
 
         return (
           <button
             aria-selected={selected}
+            aria-controls={`discovery-panel-${item.id}`}
             className={cn(
               "min-h-11 shrink-0 rounded-[0.8rem] px-4 text-sm font-black text-ink/66 transition hover:bg-white/70 hover:text-ink",
               selected && "paper-surface rotate-[-0.5deg] text-ink shadow-sm"
             )}
             key={item.id}
+            id={`discovery-tab-${item.id}`}
             onClick={() => onChange(item.id)}
             role="tab"
+            tabIndex={selected ? 0 : -1}
             type="button"
           >
             {item.label}
@@ -161,10 +176,10 @@ function ModeToggle({ mode, onChange }: { mode: DiscoveryModeId; onChange: (mode
   );
 }
 
-function DeckPill({ deck }: { deck: DiscoveryDeck }) {
+function DeckPill({ deck, className }: { deck: DiscoveryDeck; className?: string }) {
   return (
     <Link
-      className="group relative inline-flex min-h-10 items-center gap-2 rounded-[0.75rem] border border-[color:var(--deck-border)] bg-white/60 px-3 py-2 text-sm font-black text-[color:var(--deck-ink)] shadow-sm transition hover:-translate-y-0.5 hover:bg-white"
+      className={cn("group relative inline-flex min-h-10 items-center gap-2 rounded-[0.75rem] border border-[color:var(--deck-border)] bg-white/60 px-3 py-2 text-sm font-black text-[color:var(--deck-ink)] shadow-sm transition hover:-translate-y-0.5 hover:bg-white", className)}
       href={`/mazo/${deck.seoSlug}`}
       style={getDeckThemeStyle(deck.id)}
     >
@@ -267,9 +282,12 @@ function DiscoveryGroupCard({ decks, group, mode }: { decks: DiscoveryDeck[]; gr
           <IntensityMarks accent={group.accent} level={group.intensityLevel} />
         </div>
         <div className="mt-5 flex flex-wrap gap-2">
-          {groupDecks.map((deck) => (
-            <DeckPill deck={deck} key={deck.id} />
+          {groupDecks.map((deck, index) => (
+            <DeckPill className={index >= 3 ? "hidden sm:inline-flex" : undefined} deck={deck} key={deck.id} />
           ))}
+          {groupDecks.length > 3 ? (
+            <span className="inline-flex min-h-10 items-center px-1 text-xs font-black text-ink/48 sm:hidden">+{groupDecks.length - 3} en Mesa</span>
+          ) : null}
         </div>
         <RandomQuestionButton className="mt-6 w-full border-[color:var(--deck-border)] bg-[color:var(--deck-paper-soft)] text-[color:var(--deck-ink)] sm:w-auto" deckIds={group.deckIds} decks={decks} variant="plain">
           {group.cta}
@@ -312,19 +330,19 @@ export function DeckDiscovery({ decks, defaultMode = "momentos", eyebrow = "Elig
   const activeDeckCount = decks.filter((deck) => activeDeckIds.has(deck.id)).length;
 
   return (
-    <section aria-labelledby="deck-discovery-title" className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <section aria-labelledby="deck-discovery-title" className="mx-auto max-w-6xl px-4 pb-10 pt-7 sm:px-6 sm:py-10">
       <div className="mb-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
-          <p className="paper-label inline-flex rotate-[-1deg] rounded-[0.8rem] px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-coral">{eyebrow}</p>
-          <h2 id="deck-discovery-title" className="display-serif mt-4 text-4xl font-bold leading-tight text-ink sm:text-5xl">
+          <p className="paper-label hidden rotate-[-1deg] rounded-[0.8rem] px-3 py-2 text-xs font-black uppercase tracking-[0.14em] text-coral sm:inline-flex">{eyebrow}</p>
+          <h2 id="deck-discovery-title" className="display-serif mt-4 text-[2.15rem] font-semibold leading-[1.02] text-ink sm:text-5xl">
             {selectedMode.heading}
           </h2>
-          <p className="mt-3 text-base leading-7 text-ink/68">{intro ?? selectedMode.description}</p>
+          <p className="mt-3 hidden text-base leading-7 text-ink/68 sm:block">{intro ?? selectedMode.description}</p>
         </div>
-        <div className="flex min-w-0 flex-col gap-3 sm:items-start lg:items-end">
+        <div className="sticky top-[4.25rem] z-30 -mx-4 flex min-w-0 flex-col gap-2 border-y border-ink/[0.06] bg-[color:rgba(246,239,228,0.9)] px-4 py-3 backdrop-blur-xl sm:static sm:mx-0 sm:items-start sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none lg:items-end">
           <ModeToggle mode={mode} onChange={changeMode} />
           <RandomQuestionButton className="w-full shrink-0 sm:w-auto" decks={decks}>
-            Sácame una carta random
+            Carta random
           </RandomQuestionButton>
         </div>
       </div>
@@ -333,7 +351,12 @@ export function DeckDiscovery({ decks, defaultMode = "momentos", eyebrow = "Elig
         {activeDeckCount} mazos disponibles en esta vista
       </div>
 
-      <div className={cn(mode === "mesa" ? "space-y-9" : "grid gap-4 md:grid-cols-2")}>
+      <div
+        aria-labelledby={`discovery-tab-${selectedMode.id}`}
+        className={cn(mode === "mesa" ? "space-y-9" : "grid gap-4 md:grid-cols-2")}
+        id={`discovery-panel-${selectedMode.id}`}
+        role="tabpanel"
+      >
         {selectedGroups.map((group) => (
           <DiscoveryGroupCard decks={decks} group={group} key={group.id} mode={selectedMode.id} />
         ))}

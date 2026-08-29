@@ -1,9 +1,22 @@
 import type { Metadata, Viewport } from "next";
+import { DM_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { PageShell } from "@/components/PageShell";
 import { absoluteUrl } from "@/lib/utils";
 import { JsonLd } from "@/lib/JsonLd";
 import { defaultOgImage, websiteJsonLd } from "@/lib/seo";
+
+const interfaceFont = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-interface",
+  display: "swap"
+});
+
+const editorialFont = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-editorial",
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   applicationName: "Pregunton",
@@ -45,13 +58,13 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#fbfbf8"
+  themeColor: "#f6efe4"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es">
-      <body>
+    <html data-scroll-behavior="smooth" lang="es">
+      <body className={`${interfaceFont.variable} ${editorialFont.variable}`}>
         <JsonLd data={websiteJsonLd()} />
         <PageShell>{children}</PageShell>
       </body>

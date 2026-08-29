@@ -23,7 +23,7 @@ const config: Config = {
         soft: "0 14px 34px rgba(33, 31, 42, 0.09)"
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"]
+        sans: ["var(--font-interface)", "ui-sans-serif", "system-ui", "sans-serif"]
       }
     }
   },
