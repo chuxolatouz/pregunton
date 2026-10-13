@@ -9,6 +9,7 @@ import { DeckThemeIcon } from "@/components/DeckThemeIcon";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { QuestionCard } from "@/components/QuestionCard";
 import { CopyButton, ShareButton } from "@/components/ShareButton";
+import { DownloadQuestionButton } from "@/components/DownloadQuestionButton";
 
 const storageKey = "pregunton:favorites";
 const favoritesChangeEvent = "pregunton:favorites-change";
@@ -301,7 +302,10 @@ export function QuestionDeckClient({
               <ArrowRightIcon />
             </button>
           </div>
-          <p className="mt-3 text-center text-xs font-semibold text-ink/42 sm:hidden">Desliza para cambiar de carta</p>
+          <div className="mt-3 flex justify-center">
+            <DownloadQuestionButton deckTitle={deck.title} key={question.id} question={question} />
+          </div>
+          <p className="mt-1 text-center text-xs font-semibold text-ink/42 sm:hidden">Desliza para cambiar de carta</p>
         </div>
       </div>
     </section>

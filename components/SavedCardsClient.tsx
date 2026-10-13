@@ -7,6 +7,7 @@ import { getDeckThemeStyle } from "@/lib/deckTheme";
 import { DeckThemeIcon } from "@/components/DeckThemeIcon";
 import { CopyButton, ShareButton } from "@/components/ShareButton";
 import { HeartIcon } from "@/components/icons";
+import { DownloadQuestionButton } from "@/components/DownloadQuestionButton";
 
 const storageKey = "pregunton:favorites";
 const favoritesChangeEvent = "pregunton:favorites-change";
@@ -181,6 +182,9 @@ export function SavedCardsClient({ decks }: { decks: Deck[] }) {
                   >
                     <HeartIcon filled />
                   </button>
+                </div>
+                <div className="mt-3 flex justify-start">
+                  <DownloadQuestionButton deckTitle={question.deckTitle} question={question} />
                 </div>
               </div>
             </li>
