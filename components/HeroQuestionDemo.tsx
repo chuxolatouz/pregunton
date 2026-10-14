@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ShuffleIcon } from "@/components/icons";
 
 const heroQuestions = [
-  "¿Qué canción pondrías para cambiar el mood de este momento?",
+  "¿Qué canción pondrías para cambiar el ánimo de este momento?",
   "¿Qué objeto de tu casa tendría más chismes si hablara?",
   "¿Qué plan barato puede cambiar por completo un día lento?",
   "¿Qué frase usarías como saludo oficial de tu casa?",

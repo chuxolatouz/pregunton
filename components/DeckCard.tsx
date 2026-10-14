@@ -32,7 +32,7 @@ export function DeckCard({ deck, compact = false }: { deck: Deck; compact?: bool
           <h3 className="display-serif mt-3 text-2xl font-bold leading-tight text-ink">{deck.title}</h3>
           <p className="mt-3 text-sm leading-6 text-ink/68">{deck.description}</p>
           {deck.source ? (
-            <a className="mt-3 inline-flex text-xs font-bold text-ink/55 underline decoration-dashed underline-offset-4 hover:text-ink" href={deck.source.url} rel="noreferrer" target="_blank">
+            <a className="mt-3 inline-flex text-xs font-bold text-ink/70 underline decoration-dashed underline-offset-4 hover:text-ink" href={deck.source.url} rel="noreferrer" target="_blank">
               Referencia: {deck.source.label}
             </a>
           ) : null}

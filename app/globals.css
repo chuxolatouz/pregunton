@@ -577,3 +577,36 @@ select {
     padding-bottom: calc(0.8rem + env(safe-area-inset-bottom));
   }
 }
+
+/* Quiet paper primitives shared by discovery, collections and the reader. */
+:root {
+  --paper-shadow: 0 2px 0 rgba(69,52,31,.03), 0 8px 22px rgba(69,52,31,.065);
+  --paper-shadow-lift: 0 3px 0 rgba(69,52,31,.04), 0 14px 30px rgba(69,52,31,.1);
+}
+body {
+  background: #f6efe4;
+}
+.paper-button, .paper-label { box-shadow: 0 2px 6px rgba(69,52,31,.06); }
+.paper-label { background: rgba(255,250,240,.8); }
+.paper-input { min-height: 48px; padding: .65rem .85rem; border: 1px solid var(--paper-border); border-radius: .8rem; background: var(--paper); color: var(--paper-ink); font-weight: 400; }
+.paper-input::placeholder { color: #706553; opacity: 1; }
+.quiet-action { display: inline-flex; min-height: 44px; align-items: center; gap: .4rem; font-size: .875rem; font-weight: 700; color: #594d3b; cursor: pointer; }
+.quiet-action:hover { text-decoration: underline; text-underline-offset: 4px; }
+button:disabled { cursor: default; opacity: .5; }
+.collection-row { display: flex; min-height: 52px; align-items: center; justify-content: space-between; gap: 1rem; padding: .65rem .85rem; border-radius: .7rem; background: rgba(255,253,248,.55); }
+.card-options { position: relative; }
+.card-options summary { list-style: none; }
+.card-options summary::-webkit-details-marker { display: none; }
+.card-options summary::after { content: ' +'; }
+.card-options[open] summary::after { content: ' −'; }
+.card-options-panel { position: relative; z-index: 20; display: grid; gap: .65rem; min-width: 220px; padding: 1rem; margin-top: .3rem; border: 1px solid var(--paper-border); border-radius: 1rem; background: var(--paper); box-shadow: var(--paper-shadow); }
+.card-options-panel .quiet-action { width: 100%; }
+.deck-reader { padding: 1rem; min-height: 100dvh; }
+.deck-reader-inner { display: flex; flex-direction: column; min-height: calc(100dvh - 2rem); max-width: 52rem; margin-inline: auto; }
+.deck-reader-card { display: flex; flex: 1; align-items: center; padding-block: 1.8rem; }
+.deck-reader .deck-question-stack { margin-inline: auto; }
+.reader-actions { width: 100%; max-width: 32rem; margin-inline: auto; padding-bottom: env(safe-area-inset-bottom); }
+.reader-icon { display: inline-flex; flex-shrink: 0; width: 44px; height: 48px; min-height: 48px; align-items: center; justify-content: center; border-radius: .9rem; padding: 0; }
+.reader-status { min-height: 1.5rem; margin-top: .3rem; text-align: center; font-size: .8rem; color: #594d3b; }
+.deck-reader .card-options[open] .card-options-panel { position: absolute; bottom: calc(100% + .4rem); left: 50%; transform: translateX(-50%); width: min(320px, calc(100vw - 2.5rem)); max-height: 55dvh; overflow: auto; }
+@media (max-width: 639px) { .deck-reader .question-paper-card { min-height: 40dvh; padding: 1.25rem; } .deck-reader-card { padding-block: 1.5rem; } }

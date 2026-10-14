@@ -72,7 +72,7 @@ export function HeroQuestionCard({ className }: { className?: string }) {
     >
       <p className="text-[0.68rem] font-black uppercase tracking-[0.16em] text-coral sm:text-xs">Carta para empezar</p>
       <p className="display-serif mt-5 text-xl font-bold leading-tight text-ink min-[380px]:text-[1.45rem] sm:mt-8 sm:text-4xl">
-        &ldquo;¿Qué canción pondrías para cambiar el mood de este momento?&rdquo;
+        &ldquo;¿Qué canción pondrías para cambiar el ánimo de este momento?&rdquo;
       </p>
     </PaperSurface>
   );

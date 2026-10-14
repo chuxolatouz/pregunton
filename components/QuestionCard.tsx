@@ -7,7 +7,7 @@ export function QuestionCardStatic({
   question,
   deckTitle,
   deckId,
-  className
+  className,
 }: {
   question: string;
   deckTitle: string;
@@ -15,15 +15,37 @@ export function QuestionCardStatic({
   className?: string;
 }) {
   return (
-    <article className={cn("paper-surface question-paper-card paper-lift relative max-w-full overflow-hidden rounded-[1.35rem] p-7 sm:rotate-[-1deg]", className)} style={deckId ? getDeckThemeStyle(deckId) : undefined}>
-      <div className={cn("absolute right-5 top-5 grid h-16 w-16 place-items-center rounded-full border border-dashed opacity-70", deckId ? deckThemeClass(deckId, "soft") : "border-coral/30")}>
-        {deckId ? <DeckThemeIcon className={deckThemeClass(deckId, "accent", "h-8 w-8")} deckId={deckId} /> : null}
+    <article
+      className={cn(
+        "paper-surface question-paper-card paper-lift relative max-w-full overflow-hidden rounded-[1.35rem] p-7 sm:rotate-[-1deg]",
+        className,
+      )}
+      style={deckId ? getDeckThemeStyle(deckId) : undefined}
+    >
+      <div
+        className={cn(
+          "absolute right-5 top-5 grid h-16 w-16 place-items-center rounded-full border border-dashed opacity-70",
+          deckId ? deckThemeClass(deckId, "soft") : "border-coral/30",
+        )}
+      >
+        {deckId ? (
+          <DeckThemeIcon
+            className={deckThemeClass(deckId, "accent", "h-8 w-8")}
+            deckId={deckId}
+          />
+        ) : null}
       </div>
-      <PaperBadge className={deckId ? deckThemeClass(deckId, "accent") : "text-coral"}>
+      <PaperBadge
+        className={deckId ? deckThemeClass(deckId, "accent") : "text-coral"}
+      >
         {deckTitle}
       </PaperBadge>
-      <p className="display-serif mt-10 break-words text-[2rem] font-bold leading-tight text-ink sm:text-4xl">“{question}”</p>
-      <p className="mt-8 border-t border-dashed border-ink/15 pt-4 text-sm font-semibold text-ink/55">Léela en voz alta. La conversación empieza ahí.</p>
+      <p className="display-serif mt-10 break-words text-[2rem] font-bold leading-tight text-ink sm:text-4xl">
+        “{question}”
+      </p>
+      <p className="mt-8 border-t border-dashed border-ink/15 pt-4 text-sm font-semibold text-ink/70">
+        Léela en voz alta. La conversación empieza ahí.
+      </p>
     </article>
   );
 }
@@ -33,7 +55,7 @@ export function QuestionCard({
   deckTitle,
   deckId,
   status,
-  footer
+  footer,
 }: {
   question: string;
   deckTitle: string;
@@ -42,22 +64,38 @@ export function QuestionCard({
   footer?: string;
 }) {
   return (
-    <article className="paper-surface question-paper-card question-card-enter relative flex min-h-[49dvh] w-full max-w-full flex-col justify-between overflow-hidden rounded-[1.6rem] border-[color:var(--deck-border)] px-6 py-7 sm:min-h-[56dvh] sm:px-10 sm:py-9" style={getDeckThemeStyle(deckId)}>
+    <article
+      className="paper-surface question-paper-card question-card-enter relative flex min-h-[42dvh] w-full max-w-full flex-col justify-between overflow-hidden rounded-[1.6rem] border-[color:var(--deck-border)] px-6 py-7 sm:min-h-[56dvh] sm:px-10 sm:py-9"
+      style={getDeckThemeStyle(deckId)}
+    >
       <div className="pointer-events-none absolute right-6 top-6 h-20 w-20 rounded-full border border-dashed border-ink/10" />
       <div className="relative z-10 flex items-center justify-between gap-4">
-        <PaperBadge className={deckThemeClass(deckId, "accent")}>{deckTitle}</PaperBadge>
-        <p className="min-h-4 text-xs font-black text-moss" aria-live="polite" role="status">
+        <PaperBadge className="text-[color:var(--deck-ink)]">
+          {deckTitle}
+        </PaperBadge>
+        <p
+          className="min-h-4 text-xs font-black text-moss"
+          aria-live="polite"
+          role="status"
+        >
           {status}
         </p>
       </div>
-      <div className="relative z-10 flex flex-1 items-center py-8 text-center sm:py-10">
-        <p className="display-serif mx-auto max-w-2xl break-words text-[clamp(1.8rem,6vw,4.35rem)] font-semibold leading-[1.03] text-ink sm:leading-[1.01]">
+      <div className="relative z-10 flex flex-1 items-center py-6 text-center sm:py-10">
+        <p
+          aria-live="polite"
+          aria-atomic="true"
+          className="display-serif mx-auto max-w-2xl break-words text-[clamp(1.8rem,6vw,4.35rem)] font-semibold leading-[1.03] text-ink sm:leading-[1.01]"
+        >
           “{question}”
         </p>
       </div>
-      <div className="relative z-10 flex items-center justify-between border-t border-dashed border-ink/15 pt-4 text-xs font-bold uppercase tracking-[0.14em] text-ink/42">
+      <div className="relative z-10 flex items-center justify-between border-t border-dashed border-ink/15 pt-4 text-xs font-bold uppercase tracking-[0.14em] text-ink/70">
         <span>{footer ?? "Pregunta para leer"}</span>
-        <DeckThemeIcon className={deckThemeClass(deckId, "accent", "h-5 w-5 opacity-70")} deckId={deckId} />
+        <DeckThemeIcon
+          className={deckThemeClass(deckId, "accent", "h-5 w-5 opacity-70")}
+          deckId={deckId}
+        />
       </div>
     </article>
   );

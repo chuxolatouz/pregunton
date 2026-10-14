@@ -13,7 +13,9 @@ export function generateStaticParams() {
   return decks.map((deck) => ({ slug: deck.seoSlug }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const deck = getDeckBySlug(slug);
 
@@ -23,7 +25,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${deck.title} en modo cartas`,
     description: `${deck.description} Guarda, copia o comparte tus preguntas favoritas.`,
     alternates: {
-      canonical: `/mazo/${deck.seoSlug}`
+      canonical: `/mazo/${deck.seoSlug}`,
     },
     openGraph: {
       title: `${deck.title} en Pregunton`,
@@ -31,18 +33,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: `/mazo/${deck.seoSlug}`,
       type: "website",
       locale: "es",
-      images: [defaultOgImage]
+      images: [
+        { ...defaultOgImage, url: `/mazo/${deck.seoSlug}/opengraph-image` },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: `${deck.title} en Pregunton`,
       description: deck.description,
-      images: [defaultOgImage.url]
-    }
+      images: [`/mazo/${deck.seoSlug}/opengraph-image`],
+    },
   };
 }
 
-export default async function DeckModePage({ params, searchParams }: PageProps) {
+export default async function DeckModePage({
+  params,
+  searchParams,
+}: PageProps) {
   const { slug } = await params;
   const query = await searchParams;
   const deck = getDeckBySlug(slug);
@@ -51,7 +58,12 @@ export default async function DeckModePage({ params, searchParams }: PageProps) 
 
   return (
     <main>
-      <QuestionDeckClient backHref={seoPage ? `/${seoPage.slug}` : "/mazos"} deck={deck} initialQuestionId={query?.q} />
+      <QuestionDeckClient
+        key={`${deck.id}:${query?.q ?? "resume"}`}
+        backHref={seoPage ? `/${seoPage.slug}` : "/mazos"}
+        deck={deck}
+        initialQuestionId={query?.q}
+      />
     </main>
   );
 }

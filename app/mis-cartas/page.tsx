@@ -5,6 +5,7 @@ import { defaultOgImage } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Mis cartas guardadas",
+  robots: { index: false, follow: true },
   description: "Tus preguntas guardadas en Pregunton para volver a leerlas o compartirlas.",
   alternates: {
     canonical: "/mis-cartas"

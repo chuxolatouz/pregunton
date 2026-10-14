@@ -1,45 +1,22 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
-
-const source = readFileSync(join(process.cwd(), "data", "decks.ts"), "utf8");
-
-const deckBlocks = source.match(/questions: \[[\s\S]*?\n    \]/g) ?? [];
-const issues = [];
-
-if (deckBlocks.length < 10) {
-  issues.push(`Expected at least 10 question decks, found ${deckBlocks.length}.`);
-}
-
-for (const [deckIndex, block] of deckBlocks.entries()) {
-  const questions = [...block.matchAll(/"([^"]+\?)"/g)].map((match) => match[1]);
-  const unique = new Set(questions);
-
-  if (questions.length < 30) {
-    issues.push(`Deck ${deckIndex + 1} has ${questions.length} questions; expected at least 30.`);
-  }
-
-  if (unique.size !== questions.length) {
-    issues.push(`Deck ${deckIndex + 1} contains duplicate question text.`);
-  }
-
-  for (const question of questions) {
-    if (!question.startsWith("¿")) {
-      issues.push(`Question should start with inverted question mark: ${question}`);
-    }
-
-    if (question.length > 145) {
-      issues.push(`Question is too long for a mobile card (${question.length} chars): ${question}`);
-    }
-
-    if (/confiesa|trauma|nunca le has dicho a nadie|por qué eres así/i.test(question)) {
-      issues.push(`Question uses discouraged invasive wording: ${question}`);
-    }
+import { decks, seoPages } from '../data/decks.ts';
+const ids = new Set(); const issues = [];
+for (const deck of decks) {
+  if (deck.questions.length < 30) issues.push(`${deck.id}: menos de 30 preguntas`);
+  const texts = new Set();
+  for (const question of deck.questions) {
+    if (ids.has(question.id)) issues.push(`ID duplicado: ${question.id}`);
+    ids.add(question.id);
+    if (texts.has(question.text)) issues.push(`Texto duplicado en ${deck.id}: ${question.text}`);
+    texts.add(question.text);
+    if (question.text.length > 145 || !question.text.trim()) issues.push(`Texto inválido: ${question.id}`);
+    if (question.text.startsWith('¿') && !question.text.endsWith('?')) issues.push(`Signos incompletos: ${question.id}`);
+    if (/confiesa|trauma|nunca le has dicho a nadie|por qué eres así/i.test(question.text)) issues.push(`Texto invasivo: ${question.id}`);
+    if (question.deckId !== deck.id || question.locale !== 'es') issues.push(`Datos incoherentes: ${question.id}`);
   }
 }
-
-if (issues.length > 0) {
-  console.error(issues.join("\n"));
-  process.exit(1);
+for (const page of seoPages) {
+  if (!decks.some(deck => deck.id === page.deckId)) issues.push(`Mazo inexistente: ${page.slug}`);
+  for (const slug of page.related) if (!seoPages.some(item => item.slug === slug)) issues.push(`Enlace inexistente: ${slug}`);
 }
-
-console.log(`Content validation passed for ${deckBlocks.length} decks.`);
+if (issues.length) { console.error(issues.join('\n')); process.exit(1); }
+console.log(`Contenido válido: ${decks.length} mazos, ${ids.size} preguntas y ${seoPages.length} páginas SEO.`);

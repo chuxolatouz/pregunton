@@ -50,7 +50,7 @@ function MobileDock({ pathname }: { pathname: string }) {
 
 export function PageShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const isImmersiveDeck = pathname?.startsWith("/mazo/");
+  const isImmersiveDeck = pathname?.startsWith("/mazo/") || pathname?.startsWith("/coleccion/") || pathname?.startsWith("/mi-carta/") || pathname?.startsWith("/compartido/") || pathname === "/sin-conexion";
   const isHome = pathname === "/";
 
   if (isImmersiveDeck) {
@@ -65,9 +65,9 @@ export function PageShell({ children }: { children: ReactNode }) {
           <BrandLogo priority variant="compact" className="lg:hidden" imageClassName="h-9 w-auto transition-transform group-hover:rotate-[-1deg] sm:h-10" />
           <BrandLogo priority variant="horizontal" className="hidden lg:inline-flex" imageClassName="h-12 w-auto transition-transform group-hover:rotate-[-1deg]" />
         </Link>
-        <p className="text-xs font-bold text-ink/48 md:hidden">Una pregunta basta</p>
+        <p className="text-xs font-bold text-ink/70 md:hidden">Una pregunta basta</p>
         <nav aria-label="Principal" className="hidden items-center gap-1 text-sm text-ink/68 md:flex">
-            {isHome ? <span className="mr-2 text-xs font-bold uppercase tracking-[0.12em] text-ink/42">Para conversar ahora</span> : null}
+            {isHome ? <span className="mr-2 text-xs font-bold uppercase tracking-[0.12em] text-ink/70">Para conversar ahora</span> : null}
             {desktopLinks.map((link) => (
               <Link
                 aria-current={isCurrentPath(pathname, link.href) ? "page" : undefined}
@@ -85,7 +85,7 @@ export function PageShell({ children }: { children: ReactNode }) {
         </div>
       </header>
       {children}
-      <footer className="mx-auto mt-12 max-w-6xl px-4 pb-28 pt-8 text-sm text-ink/60 sm:px-6 md:pb-10">
+      <footer className="mx-auto mt-12 max-w-6xl px-4 pb-28 pt-8 text-sm text-ink/70 sm:px-6 md:pb-10">
         <div className="grid gap-6 border-t border-dashed border-ink/15 pt-6 sm:grid-cols-[1fr_auto] sm:items-start">
           <div>
             <BrandLogo variant="compact" imageClassName="h-10 w-auto opacity-90" />

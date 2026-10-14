@@ -1,0 +1,13 @@
+**Resultado de la implementación**
+
+Se implementaron las fases locales del plan: IDs estables, almacenamiento versionado con migración de favoritos, enlaces exactos, feedback y deshacer; diseño más compacto, búsqueda, progreso, barajado sin repetición, colecciones, preguntas propias, exportación/importación y mazos sin conexión. Se editaron 105 preguntas y se añadieron enlaces por carta e imágenes OG por mazo, conservando preguntas en HTML y las referencias de contenido atribuido.
+
+La cuenta opcional y las colecciones compartibles tienen interfaz, lógica y dos migraciones Supabase. El proyecto ya está configurado en `.env.local`. La revisión del 14 de octubre confirmó respuesta del servicio, Email habilitado, rechazo del acceso anónimo a las tablas privadas y respuesta de la lectura pública para un token inexistente. Falta comprobar entrega/retorno del correo, sincronización real, RLS con dos usuarios y publicación/actualización/revocación de una colección. Estas pruebas siguen abiertas; la conectividad no las sustituye. [Configuración y pruebas pendientes](../docs/cuenta-y-sincronizacion.md).
+
+Comprobaciones repetidas el 14 de octubre: 14 pruebas de IDs, migración, importación, conflictos, borrado, aislamiento local, recuperación y barajado; lint, TypeScript, validación de los 36 mazos/1.086 preguntas y build con Supabase configurado. En navegador, el 13 de octubre se verificaron enlace exacto, compartir mediante payload simulado de API nativa y alternativa de copia, descarga PNG real, exportación/importación JSON repetida, colecciones, pregunta propia y deshacer. Se comprobó navegación offline desde una URL de mazo, lectura, siguiente, guardadas y colección sin errores de consola.
+
+Axe: cinco pantallas a 360 × 640 y 1440 × 900, sin infracciones en las reglas WCAG A/AA ejecutadas después de corregir el contraste del pie. Teclado, Escape con retorno de foco, movimiento reducido y texto al 200% sin truncamiento comprobados. Falta la revisión manual con lector de pantalla.
+
+Rendimiento local como invitado: +5.550 bytes de JavaScript transferido en inicio/biblioteca (~3,3%) y +2.370 en cartas (~1,4%). Cartas hace 8 solicitudes JS frente a 9 en la versión anterior. La cuenta sin configurar no descarga el SDK; el resultado no estima conexiones móviles ni la integración activa.
+
+[Plan actualizado](plan-trabajo-pregunton.md). Capturas: [biblioteca móvil](playwright/final-discovery-mobile.png), [cartas móvil](playwright/final-reader-mobile.png), [guardadas móvil](playwright/final-saved-mobile.png), [inicio escritorio](playwright/final-home-desktop.png), [biblioteca escritorio](playwright/final-discovery-desktop.png), [colección offline](playwright/final-offline-mobile.png).

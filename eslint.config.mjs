@@ -11,6 +11,8 @@ export default defineConfig([
     "out/**",
     "dist/**",
     "coverage/**",
+    "output/playwright/**",
+    ".playwright-cli/**",
     "next-env.d.ts"
   ])
 ]);

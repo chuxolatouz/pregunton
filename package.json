@@ -6,10 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "eslint .",
-    "validate:content": "node scripts/validate-content.mjs",
-    "typecheck": "tsc --noEmit"
+    "validate:content": "node --import tsx scripts/validate-content.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "start": "next start"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.3",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
@@ -19,10 +22,12 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
+    "axe-core": "^4.14.0",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.6",
     "postcss": "latest",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.15",
     "typescript": "latest"
   }
 }
